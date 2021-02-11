@@ -8,6 +8,7 @@ import net.deemu.slayers.NPC.MaddoxTheSlayer;
 import net.deemu.slayers.Slayers;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
 import net.minecraft.server.v1_8_R3.Packet;
+import net.minecraft.server.v1_8_R3.PacketPlayInUseEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -30,10 +31,10 @@ public class PacketReader {
         channels.put(player.getUniqueId(), channel);
 
         if (channel.pipeline().get("PacketInjector") != null) return;
-        channel.pipeline().addAfter("decoder", "PacketInjector", new MessageToMessageDecoder<Packet<?>>() {
+        channel.pipeline().addAfter("decoder", "PacketInjector", new MessageToMessageDecoder<PacketPlayInUseEntity>() {
 
             @Override
-            protected void decode(ChannelHandlerContext channelHandlerContext, Packet<?> packet, List<Object> list) throws Exception {
+            protected void decode(ChannelHandlerContext channelHandlerContext, PacketPlayInUseEntity packet, List<Object> list) throws Exception {
                 list.add(packet);
                 readPacket(player, packet);
             }
