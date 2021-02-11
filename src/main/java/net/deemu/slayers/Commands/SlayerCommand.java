@@ -1,8 +1,11 @@
 package net.deemu.slayers.Commands;
 
 import net.deemu.slayers.MenuSystem.PlayerMenuUtility;
+import net.deemu.slayers.MenuSystem.QuestMenu;
 import net.deemu.slayers.MenuSystem.SlayersMenu;
 import net.deemu.slayers.NPC.MaddoxTheSlayer;
+import net.deemu.slayers.Quests.Quest;
+import net.deemu.slayers.Quests.QuestType;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -37,6 +40,9 @@ public class SlayerCommand implements CommandExecutor {
                 } else {
                     player.sendMessage(ChatColor.RED + "You cannot do this!");
                 }
+            }
+            if(args[0].equalsIgnoreCase("myquest")) {
+                new QuestMenu(new PlayerMenuUtility(player)).open();
             }
         }
         return false;

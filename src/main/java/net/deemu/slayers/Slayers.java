@@ -1,9 +1,7 @@
 package net.deemu.slayers;
 
 import net.deemu.slayers.Commands.SlayerCommand;
-import net.deemu.slayers.Listeners.InventoryClickEvent;
-import net.deemu.slayers.Listeners.PlayerJoinEvent;
-import net.deemu.slayers.Listeners.PlayerQuitEvent;
+import net.deemu.slayers.Listeners.*;
 import net.deemu.slayers.MenuSystem.PlayerMenuUtility;
 import net.deemu.slayers.Packets.PacketReader;
 import org.bukkit.Bukkit;
@@ -56,6 +54,8 @@ public class Slayers extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new InventoryClickEvent(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinEvent(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new RightClickNPC(), this);
+        Bukkit.getPluginManager().registerEvents(new EntityDeathEvent(), this);
     }
 
     public static Slayers getPlugin(){
