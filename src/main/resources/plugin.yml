@@ -1,0 +1,9 @@
+name: Slayers
+version: ${project.version}
+main: net.deemu.slayers.Slayers
+api-version: 1.16
+authors: [ Deemu ]
+description: Hypixel Skyblock Slayers
+website: deemu.net
+commands:
+  slayer:
