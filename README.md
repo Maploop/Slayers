@@ -1,4 +1,4 @@
-# Slayers
+# 🗡️ Slayer Quests 👹
 Hypixel Skyblock Slayer bosses project
 
 This project is availbe for the public.
