@@ -79,7 +79,6 @@ public class PacketReader {
 
         }
     }
-
     private Object getValue(Object instance, String name) {
         // Basic method to get all the values
         // From the fields in the NMS classes.

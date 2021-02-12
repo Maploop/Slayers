@@ -1,5 +1,6 @@
 package net.deemu.slayers.Commands;
 
+import net.deemu.slayers.Bosses.SlayerBoss;
 import net.deemu.slayers.MenuSystem.PlayerMenuUtility;
 import net.deemu.slayers.MenuSystem.QuestMenu;
 import net.deemu.slayers.MenuSystem.SlayersMenu;
@@ -43,6 +44,14 @@ public class SlayerCommand implements CommandExecutor {
             }
             if(args[0].equalsIgnoreCase("myquest")) {
                 new QuestMenu(new PlayerMenuUtility(player)).open();
+            }
+            if(args[0].equalsIgnoreCase("spawnboss")) {
+                if(player.hasPermission("slayers.admin")) {
+                    SlayerBoss.spawnSlayerBoss(SlayerBoss.ZOMBIE_SLAYER_TIER_1, player.getLocation(), player);
+                    player.sendMessage("§aSuccess!");
+                } else {
+                    player.sendMessage("§cYou cannot do this!");
+                }
             }
         }
         return false;

@@ -1,10 +1,6 @@
 package net.deemu.slayers.Bosses.RevenantHorror;
 
-import net.minecraft.server.v1_8_R3.EntityPlayer;
-import net.minecraft.server.v1_8_R3.EntityZombie;
-import net.minecraft.server.v1_8_R3.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_8_R3.World;
-import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.entity.Zombie;
 
 public class ZOMBIE_SLAYER_TIER_1 extends EntityZombie {
@@ -24,3 +20,4 @@ public class ZOMBIE_SLAYER_TIER_1 extends EntityZombie {
 
     }
 }
+

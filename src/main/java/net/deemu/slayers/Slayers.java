@@ -1,5 +1,7 @@
 package net.deemu.slayers;
 
+import net.deemu.slayers.Bosses.RevenantHorror.ZOMBIE_SLAYER_TIER_1;
+import net.deemu.slayers.Bosses.SlayerBoss;
 import net.deemu.slayers.Commands.SlayerCommand;
 import net.deemu.slayers.Listeners.*;
 import net.deemu.slayers.MenuSystem.PlayerMenuUtility;
@@ -21,6 +23,7 @@ public class Slayers extends JavaPlugin {
         plugin = this;
         registerCommands();
         registerListeners();
+        saveDefaultConfig();
 
         if(!(Bukkit.getOnlinePlayers().isEmpty())){
             for(Player players : Bukkit.getOnlinePlayers()) {
@@ -56,6 +59,11 @@ public class Slayers extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerQuitEvent(), this);
         Bukkit.getPluginManager().registerEvents(new RightClickNPC(), this);
         Bukkit.getPluginManager().registerEvents(new EntityDeathEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new EntityDamageByEntity(), this);
+    }
+
+    private void registerCustomEntities() {
+        SlayerBoss.registerEntity("ZOMBIE_SLAYER_TIER_1", 1, ZOMBIE_SLAYER_TIER_1.class);
     }
 
     public static Slayers getPlugin(){
