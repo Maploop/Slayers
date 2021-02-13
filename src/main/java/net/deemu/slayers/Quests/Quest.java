@@ -1,5 +1,6 @@
 package net.deemu.slayers.Quests;
 
+import net.deemu.slayers.Bosses.SlayerBoss;
 import net.deemu.slayers.Listeners.EntityDeathEvent;
 import org.bukkit.entity.Player;
 
@@ -9,6 +10,7 @@ import java.util.UUID;
 public class Quest {
     private static String type;
     public static HashMap<UUID, QuestType> quest = new HashMap<>();
+    public static HashMap<UUID, Boolean> fightingBoss = new HashMap<>();
 
     public static HashMap<UUID, QuestType> getQuest(Player player) {
         return quest;

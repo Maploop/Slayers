@@ -16,22 +16,23 @@ public class EntityDamageByEntity implements Listener {
     public void onDamage(EntityDamageByEntityEvent event) {
         Slayers plugin = Slayers.getPlugin();
         if (plugin.getConfig().getBoolean("damage-indicator")) {
-            if (!(event.getDamager() instanceof Player)) return;
+            if (event.getEntity().getType() == EntityType.ARMOR_STAND) return;
             Entity entity = event.getEntity();
 
             int random = Utilities.getRandomInteger(2);
 
             if (random == 0) {
-                int randomX = Utilities.getRandomInteger(2);
-                ArmorStand indicator = (ArmorStand) entity.getWorld().spawnEntity(entity.getLocation().add(randomX, 0, 0), EntityType.ARMOR_STAND);
+                int randomZ = Utilities.getRandomInteger(2);
+                ArmorStand indicator = (ArmorStand) entity.getWorld().spawnEntity(entity.getLocation().add(0, 0, randomZ), EntityType.ARMOR_STAND);
                 indicator.setCustomNameVisible(true);
                 indicator.setGravity(false);
                 indicator.setVisible(false);
                 indicator.setSmall(true);
-                if(event.getDamage() < 10) {
-                    indicator.setCustomName("§c❤ §a" + String.valueOf(event.getDamage() + "§c❤"));
+                indicator.setOp(true);
+                if (event.getDamage() < 10) {
+                    indicator.setCustomName("§e✧ §a" + String.valueOf(event.getDamage() + " §e✧"));
                 } else if (event.getDamage() > 10) {
-                    indicator.setCustomName("§c❤ §e" + String.valueOf(event.getDamage() + "§c❤"));
+                    indicator.setCustomName("§c✧ §e" + String.valueOf(event.getDamage() + " §c✧"));
                 }
                 new BukkitRunnable() {
                     @Override
@@ -49,10 +50,11 @@ public class EntityDamageByEntity implements Listener {
                 indicator.setGravity(false);
                 indicator.setVisible(false);
                 indicator.setSmall(true);
-                if(event.getDamage() < 10) {
-                    indicator.setCustomName("§c❤ §a" + String.valueOf(event.getDamage() + "§c❤"));
+                indicator.setOp(true);
+                if (event.getDamage() < 10) {
+                    indicator.setCustomName("§e✧ §a" + String.valueOf(event.getDamage() + " §e✧"));
                 } else if (event.getDamage() > 10) {
-                    indicator.setCustomName("§c❤ §e" + String.valueOf(event.getDamage() + "§c❤"));
+                    indicator.setCustomName("§c✧ §e" + String.valueOf(event.getDamage() + " §c✧"));
                 }
                 new BukkitRunnable() {
                     @Override
@@ -69,10 +71,11 @@ public class EntityDamageByEntity implements Listener {
                 indicator.setGravity(false);
                 indicator.setVisible(false);
                 indicator.setSmall(true);
-                if(event.getDamage() < 10) {
-                    indicator.setCustomName("§c❤ §a" + String.valueOf(event.getDamage() + "§c❤"));
+                indicator.setOp(true);
+                if (event.getDamage() < 10) {
+                    indicator.setCustomName("§e✧ §a" + String.valueOf(event.getDamage() + " §e✧"));
                 } else if (event.getDamage() > 10) {
-                    indicator.setCustomName("§c❤ §e" + String.valueOf(event.getDamage() + "§c❤"));
+                    indicator.setCustomName("§c✧ §e" + String.valueOf(event.getDamage() + " §c✧"));
                 }
 
                 new BukkitRunnable() {

@@ -60,6 +60,7 @@ public class Slayers extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new RightClickNPC(), this);
         Bukkit.getPluginManager().registerEvents(new EntityDeathEvent(), this);
         Bukkit.getPluginManager().registerEvents(new EntityDamageByEntity(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
     }
 
     private void registerCustomEntities() {

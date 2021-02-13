@@ -9,12 +9,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Zombie;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -35,6 +37,7 @@ public enum SlayerBoss {
     WOLF_SLAYER_TIER_3(11, 3),
     WOLF_SLAYER_TIER_4(12, 4);
 
+    public static HashMap<UUID, Entity> boss = new HashMap<>();
 
     private final int id;
     private final int tier;
@@ -47,6 +50,10 @@ public enum SlayerBoss {
     private static Map<Zombie, ArmorStand> tag = new HashMap<>();
 
     public static void spawnSlayerBoss(SlayerBoss bossType, Location loc, Player player) {
+        ItemStack hoe = new ItemStack(Material.DIAMOND_HOE);
+        ItemMeta hoeMeta = hoe.getItemMeta();
+        hoeMeta.addEnchant(Enchantment.DAMAGE_ALL, 2, false);
+        hoe.setItemMeta(hoeMeta);
         if(bossType == null) return;
         if(bossType.equals(SlayerBoss.ZOMBIE_SLAYER_TIER_1)) {
             Zombie boss1 = (Zombie) player.getWorld().spawnEntity(loc, EntityType.ZOMBIE);
@@ -54,10 +61,17 @@ public enum SlayerBoss {
             boss1.getEquipment().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
             boss1.getEquipment().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
             boss1.getEquipment().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
-            boss1.getEquipment().setItemInHand(new ItemStack(Material.DIAMOND_HOE));
+            boss1.getEquipment().setItemInHand(hoe);
             boss1.setBaby(false);
             boss1.setMaxHealth(100);
             boss1.setHealth(100);
+            boss1.setTarget(player);
+            boss1.setVillager(false);
+            boss1.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, 2), false);
+            boss1.setVelocity(new Vector(0, 2, 0));
+            boss1.setFallDistance(0);
+            boss1.setMaximumNoDamageTicks(10);
+            boss.put(player.getUniqueId(), boss1);
 
             ArmorStand name = (ArmorStand) player.getWorld().spawnEntity(boss1.getLocation(), EntityType.ARMOR_STAND);
             name.setCustomNameVisible(true);

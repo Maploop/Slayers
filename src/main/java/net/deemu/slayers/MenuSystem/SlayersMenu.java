@@ -2,6 +2,7 @@ package net.deemu.slayers.MenuSystem;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -9,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SlayersMenu extends Menu{
+public class SlayersMenu extends Menu {
     public SlayersMenu(PlayerMenuUtility playerMenuUtility) {
         super(playerMenuUtility);
     }
@@ -28,7 +29,7 @@ public class SlayersMenu extends Menu{
     public void hadleMenu(InventoryClickEvent event) {
         event.setCancelled(true);
         Player player = (Player) event.getWhoClicked();
-        if(event.getSlot() == 31){
+        if (event.getSlot() == 31) {
             player.closeInventory();
         }
         switch (event.getSlot()) {
@@ -37,8 +38,15 @@ public class SlayersMenu extends Menu{
                 break;
             case 27:
                 new QuestMenu(new PlayerMenuUtility(player)).open();
+                break;
+            case 30:
+                player.closeInventory();
+                player.sendMessage("§cThis feature is currently unavailable!");
+                player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 10F, 0);
+                break;
         }
     }
+
     public String newline = "\n";
 
     @Override
@@ -91,7 +99,7 @@ public class SlayersMenu extends Menu{
                 "§7have gotten through",
                 "§7your journey!",
                 "",
-                "§eClick to view!");
+                "§cFeature unavailable!");
         inventory.setItem(30, drops);
 
         ItemStack myQuest = makeCustomSkullItem("http://textures.minecraft.net/texture/1035c528036b384c53c9c8a1a125685e16bfb369c197cc9f03dfa3b835b1aa55", "§aYour Active Quests", 1,

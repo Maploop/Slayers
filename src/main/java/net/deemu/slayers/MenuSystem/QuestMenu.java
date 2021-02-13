@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class QuestMenu extends Menu{
+public class QuestMenu extends Menu {
     public QuestMenu(PlayerMenuUtility playerMenuUtility) {
         super(playerMenuUtility);
     }
@@ -32,11 +32,8 @@ public class QuestMenu extends Menu{
                 new SlayersMenu(new PlayerMenuUtility(player)).open();
                 break;
             case 13:
-                if(event.getCurrentItem().getItemMeta().getDisplayName().contains("§eRevenant")) {
-                    player.closeInventory();
-                    Quest.cancelQuest(player);
-                    player.sendMessage("§cSlayer quest cancelled.");
-                    player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 10F, 0);
+                if (event.getCurrentItem().getItemMeta().getDisplayName().contains("§eRevenant")) {
+                    new ConfirmMenu(new PlayerMenuUtility(player)).open();
                 } else {
                     player.sendMessage("§cYou do not have an active quest!");
                     player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 10F, 0);
@@ -54,17 +51,24 @@ public class QuestMenu extends Menu{
 
         ItemStack slayerQuest;
         Quest quest = new Quest();
-        if(quest.getType(player) == null) {
+        if (quest.getType(player) == null) {
             slayerQuest = makeItem(Material.BEDROCK, "§cError!", 1, 0,
                     "§7You do not currently have",
-                    "§7active slayer quest!",
-                    "§7Activate a quest via",
-                    "§e/slayer menu§.");
+                    "§7an active slayer quest!");
             inventory.setItem(13, slayerQuest);
             return;
         }
-        if(quest.getType(player).equals(QuestType.ZOMBIE_SLAYER_TIER_1)) {
-            slayerQuest = makeItem(Material.ROTTEN_FLESH, "§eRevenant Horror I", 1, 0, "§cClick to cancel!");
+        if (quest.getType(player).equals(QuestType.ZOMBIE_SLAYER_TIER_1)) {
+            slayerQuest = makeItem(Material.ROTTEN_FLESH, "§eRevenant Horror I", 1, 0,
+                    "§7You can click this",
+                    "§7if you want to cancel your",
+                    "§7Slayer Quest.",
+                    "",
+                    "§cWARNING: Your Slayer boss",
+                    "§cwill despawn if you",
+                    "§cconfirm this action.",
+                    "",
+                    "§eClick to cancel!");
             inventory.setItem(13, slayerQuest);
         }
 
