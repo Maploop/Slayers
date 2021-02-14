@@ -67,10 +67,11 @@ public enum SlayerBoss {
             boss1.setHealth(100);
             boss1.setTarget(player);
             boss1.setVillager(false);
-            boss1.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, 2), false);
+            boss1.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, 4), false);
             boss1.setVelocity(new Vector(0, 2, 0));
             boss1.setFallDistance(0);
-            boss1.setMaximumNoDamageTicks(10);
+            boss1.setMaximumNoDamageTicks(3);
+            boss1.setNoDamageTicks(3);
             boss.put(player.getUniqueId(), boss1);
 
             ArmorStand name = (ArmorStand) player.getWorld().spawnEntity(boss1.getLocation(), EntityType.ARMOR_STAND);
