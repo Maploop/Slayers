@@ -36,12 +36,15 @@ public class EntityDeathEvent implements Listener {
                     } else if (combat_exp.get(player.getUniqueId()) >= 100) {
 
                         if (!(Quest.fightingBoss.containsKey(player.getUniqueId()))) {
-                            player.sendMessage(ChatColor.GREEN + "The slayer boss has spawned! SLAY THE BOSS!");
-                            player.getWorld().playEffect(event.getEntity().getLocation(), Effect.EXPLOSION_HUGE, 0);
-                            player.playSound(player.getLocation(), Sound.EXPLODE, 10F, 1);
-                            SlayerBoss.spawnSlayerBoss(SlayerBoss.ZOMBIE_SLAYER_TIER_1, event.getEntity().getLocation(), player);
-                            Utilities.sendActionbar(player, "&c&lSLAY THE BOSS!");
-                            Quest.fightingBoss.put(player.getUniqueId(), true);
+                            if (!(Quest.questComplete.containsKey(player.getUniqueId()))) {
+                                player.sendMessage(ChatColor.GREEN + "The slayer boss has spawned! SLAY THE BOSS!");
+                                player.getWorld().playEffect(event.getEntity().getLocation(), Effect.EXPLOSION_HUGE, 0);
+                                player.playSound(player.getLocation(), Sound.EXPLODE, 10F, 1);
+                                SlayerBoss.spawnSlayerBoss(SlayerBoss.ZOMBIE_SLAYER_TIER_1, event.getEntity().getLocation(), player);
+                                Utilities.sendActionbar(player, "&c&lSLAY THE BOSS!");
+                                Quest.fightingBoss.put(player.getUniqueId(), true);
+                                return;
+                            }
                         } else if (Quest.fightingBoss.containsKey(player.getUniqueId())) {
                             if (SlayerBoss.bossMap.get(player.getUniqueId()) == event.getEntity()) {
                                 if (event.getEntity().getEquipment().getHelmet().getItemMeta().getDisplayName().equals("ZOMBIE_SLAYER_TIER_1")) {
@@ -76,12 +79,14 @@ public class EntityDeathEvent implements Listener {
                         Utilities.sendActionbar(player, "&3+5 Combat (" + combat_exp.get(player.getUniqueId()) + "/1440)");
                     } else if (combat_exp.get(player.getUniqueId()) >= 1440) {
                         if (!(Quest.fightingBoss.containsKey(player.getUniqueId()))) {
-                            player.sendMessage(ChatColor.GREEN + "The slayer boss has spawned! SLAY THE BOSS!");
-                            player.getWorld().playEffect(event.getEntity().getLocation(), Effect.EXPLOSION_HUGE, 0);
-                            player.playSound(player.getLocation(), Sound.EXPLODE, 10F, 1);
-                            SlayerBoss.spawnSlayerBoss(SlayerBoss.ZOMBIE_SLAYER_TIER_2, event.getEntity().getLocation(), player);
-                            Utilities.sendActionbar(player, "&c&lSLAY THE BOSS!");
-                            Quest.fightingBoss.put(player.getUniqueId(), true);
+                            if (!(Quest.questComplete.containsKey(player.getUniqueId()))) {
+                                player.sendMessage(ChatColor.GREEN + "The slayer boss has spawned! SLAY THE BOSS!");
+                                player.getWorld().playEffect(event.getEntity().getLocation(), Effect.EXPLOSION_HUGE, 0);
+                                player.playSound(player.getLocation(), Sound.EXPLODE, 10F, 1);
+                                SlayerBoss.spawnSlayerBoss(SlayerBoss.ZOMBIE_SLAYER_TIER_2, event.getEntity().getLocation(), player);
+                                Utilities.sendActionbar(player, "&c&lSLAY THE BOSS!");
+                                Quest.fightingBoss.put(player.getUniqueId(), true);
+                            }
                         } else if (Quest.fightingBoss.containsKey(player.getUniqueId())) {
                             if (SlayerBoss.bossMap.get(player.getUniqueId()) == event.getEntity()) {
                                 if (event.getEntity().getEquipment().getHelmet().getItemMeta().getDisplayName().equals("ZOMBIE_SLAYER_TIER_2")) {
