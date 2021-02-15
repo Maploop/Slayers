@@ -2,3 +2,7 @@
 # Most of the stuff in the plugin are custimizable here.
 
 damage-indicator: true
+damage-indocator-format: "#,###.0"
+damage-indicator-fire: "&c{damage}"
+damage-indicator-poison: "&2{damage}"  #COMING SOON !!!
+damage-indicator-attack: "&f✧ {damage} &f✧"

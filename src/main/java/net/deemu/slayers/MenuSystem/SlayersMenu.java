@@ -1,13 +1,17 @@
 package net.deemu.slayers.MenuSystem;
 
+import org.apache.logging.log4j.message.MapMessage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.MapMeta;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class SlayersMenu extends Menu {
@@ -51,6 +55,8 @@ public class SlayersMenu extends Menu {
 
     @Override
     public void setItems() {
+        Date now = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         setFilter();
         List<String> revLore = new ArrayList<>();
         revLore.add("§7Abhorrant Zombie stuck");
@@ -59,7 +65,7 @@ public class SlayersMenu extends Menu {
         revLore.add("");
         revLore.add(ChatColor.GRAY + "Zombie Slayer: " + ChatColor.RED + "N/A");
         revLore.add("");
-        revLore.add(ChatColor.RED + "Not Available.");
+        revLore.add(ChatColor.YELLOW + "Click to view!");
         ItemStack revenantHorror = makeAdvancedItem(Material.ROTTEN_FLESH, ChatColor.RED + "☠ " + ChatColor.YELLOW + "Revenant Horror", 1, 0, revLore);
         inventory.setItem(10, revenantHorror);
 
@@ -72,7 +78,7 @@ public class SlayersMenu extends Menu {
         trantulaLore.add("");
         trantulaLore.add("§7Spider Slayer: §cN/A");
         trantulaLore.add("");
-        trantulaLore.add(ChatColor.RED + "Not Available.");
+        trantulaLore.add(ChatColor.RED + "§lCOMING SOON");
         ItemStack tarantulaBroodfather = makeAdvancedItem(Material.WEB, ChatColor.RED + "☠ " + ChatColor.YELLOW + "Tarantula Broodfather", 1, 0, trantulaLore);
         inventory.setItem(11, tarantulaBroodfather);
 
@@ -84,7 +90,7 @@ public class SlayersMenu extends Menu {
         svenLore.add("");
         svenLore.add(ChatColor.GRAY + "Wolf Slayer: " + ChatColor.RED + "N/A");
         svenLore.add("");
-        svenLore.add("§cNot available.");
+        svenLore.add("§c§lCOMING SOON");
         ItemStack svenPackmaster = makeAdvancedItem(Material.MUTTON, "§c☠ §eSven Packmaster", 1, 0, svenLore);
         inventory.setItem(12, svenPackmaster);
 
@@ -94,10 +100,12 @@ public class SlayersMenu extends Menu {
         inventory.setItem(15, comingSoon);
         inventory.setItem(16, comingSoon);
 
-        ItemStack drops = makeItem(Material.WHEAT, "§eSlayer Drops", 1, 0,
-                "§7View all the drops you",
-                "§7have gotten through",
-                "§7your journey!",
+        ItemStack drops = makeItem(Material.MAP, "§eSlayer History", 1, 0,
+                "§7View all the slayer",
+                "§7quests you've done",
+                "§7until today!",
+                "",
+                "§7Date: §a" + format.format(now),
                 "",
                 "§cFeature unavailable!");
         inventory.setItem(30, drops);
@@ -108,6 +116,5 @@ public class SlayersMenu extends Menu {
                 "§7it if you wish so!",
                 "",
                 "§eClick to view!");
-        inventory.setItem(27, myQuest);
     }
 }

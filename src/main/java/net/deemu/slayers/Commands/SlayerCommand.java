@@ -24,8 +24,11 @@ public class SlayerCommand implements CommandExecutor {
                 return true;
             }
             if (args[0].equalsIgnoreCase("menu")) {
-                PlayerMenuUtility playerMenuUtility = new PlayerMenuUtility(player);
-                new SlayersMenu(playerMenuUtility).open();
+                if (Quest.quest.containsKey(player.getUniqueId())) {
+                    new QuestMenu(new PlayerMenuUtility(player)).open();
+                } else {
+                    new SlayersMenu(new PlayerMenuUtility(player)).open();
+                }
             }
             if (args[0].equalsIgnoreCase("npc")) {
                 if (player.hasPermission("slayers.admin")) {
@@ -47,8 +50,8 @@ public class SlayerCommand implements CommandExecutor {
             }
             if(args[0].equalsIgnoreCase("spawnboss")) {
                 if(player.hasPermission("slayers.admin")) {
-                    SlayerBoss.spawnSlayerBoss(SlayerBoss.ZOMBIE_SLAYER_TIER_1, player.getLocation(), player);
                     player.sendMessage("§aSuccess!");
+                    SlayerBoss.spawnSlayerBoss(SlayerBoss.valueOf(args[1]), player.getLocation(), player);
                 } else {
                     player.sendMessage("§cYou cannot do this!");
                 }

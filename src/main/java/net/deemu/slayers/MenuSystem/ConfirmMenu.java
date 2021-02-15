@@ -31,8 +31,8 @@ public class ConfirmMenu extends Menu {
         switch (event.getSlot()) {
             case 11:
                 Quest.cancelQuest(player);
-                if (SlayerBoss.boss.containsKey(player.getUniqueId())) {
-                    SlayerBoss.boss.get(player.getUniqueId()).remove();
+                if (SlayerBoss.bossMap.containsKey(player.getUniqueId())) {
+                    SlayerBoss.bossMap.get(player.getUniqueId()).remove();
                 }
                 player.sendMessage("§cSuccessfully cancelled your current Slayer Quest.");
                 player.playSound(player.getLocation(), Sound.NOTE_PLING, 10F, 2);

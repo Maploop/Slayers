@@ -11,6 +11,7 @@ public class Quest {
     private static String type;
     public static HashMap<UUID, QuestType> quest = new HashMap<>();
     public static HashMap<UUID, Boolean> fightingBoss = new HashMap<>();
+    public static HashMap<UUID, Boolean> questComplete = new HashMap<>();
 
     public static HashMap<UUID, QuestType> getQuest(Player player) {
         return quest;

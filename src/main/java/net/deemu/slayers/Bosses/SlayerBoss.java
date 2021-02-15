@@ -1,8 +1,7 @@
 package net.deemu.slayers.Bosses;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
 import net.deemu.slayers.Slayers;
+import net.deemu.slayers.Utilities.Utilities;
 import net.minecraft.server.v1_8_R3.EntityInsentient;
 import net.minecraft.server.v1_8_R3.EntityTypes;
 import org.bukkit.Bukkit;
@@ -37,7 +36,7 @@ public enum SlayerBoss {
     WOLF_SLAYER_TIER_3(11, 3),
     WOLF_SLAYER_TIER_4(12, 4);
 
-    public static HashMap<UUID, Entity> boss = new HashMap<>();
+    public static HashMap<UUID, Entity> bossMap = new HashMap<>();
 
     private final int id;
     private final int tier;
@@ -52,7 +51,7 @@ public enum SlayerBoss {
     public static void spawnSlayerBoss(SlayerBoss bossType, Location loc, Player player) {
         ItemStack hoe = new ItemStack(Material.DIAMOND_HOE);
         ItemMeta hoeMeta = hoe.getItemMeta();
-        hoeMeta.addEnchant(Enchantment.DAMAGE_ALL, 2, false);
+        hoeMeta.addEnchant(Enchantment.DAMAGE_ALL, 5, false);
         hoe.setItemMeta(hoeMeta);
         if(bossType == null) return;
         if(bossType.equals(SlayerBoss.ZOMBIE_SLAYER_TIER_1)) {
@@ -67,12 +66,10 @@ public enum SlayerBoss {
             boss1.setHealth(100);
             boss1.setTarget(player);
             boss1.setVillager(false);
-            boss1.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, 4), false);
-            boss1.setVelocity(new Vector(0, 2, 0));
+            boss1.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, 7), false);
+            boss1.setVelocity(new Vector(0, 0.5, 0));
             boss1.setFallDistance(0);
-            boss1.setMaximumNoDamageTicks(3);
-            boss1.setNoDamageTicks(3);
-            boss.put(player.getUniqueId(), boss1);
+            bossMap.put(player.getUniqueId(), boss1);
 
             ArmorStand name = (ArmorStand) player.getWorld().spawnEntity(boss1.getLocation(), EntityType.ARMOR_STAND);
             name.setCustomNameVisible(true);
@@ -89,11 +86,62 @@ public enum SlayerBoss {
                     if(tag.containsKey(boss1)) {
                         if(!(boss1.isDead())) {
                             Location l = boss1.getLocation().add(0, 0.3, 0);
-                            name.setCustomName("§c☠ §bRevenant Horror §a" + Math.round(boss1.getHealth() * 5) + "§7/§a" + Math.round(boss1.getMaxHealth() * 5) + "§c ❤");
-                            boss1.getWorld().playEffect(boss1.getLocation(), Effect.LARGE_SMOKE, 5);
+                            name.setCustomName("§c☠ §bRevenant Horror §a" + Math.round(boss1.getHealth() * 5) + "§c ❤");
+                            boss1.getWorld().playEffect(boss1.getLocation(), Effect.MAGIC_CRIT, 3);
                             name.teleport(l);
+                            boss1.getWorld().playEffect(boss1.getLocation(), Effect.HEART, 2);
                         } else {
                             tag.remove(boss1);
+                            name.remove();
+                        }
+                    }
+                }
+            }, 0L, 1L);
+        }
+
+        if (bossType == SlayerBoss.ZOMBIE_SLAYER_TIER_2) {
+            Zombie boss = (Zombie) player.getWorld().spawnEntity(loc, EntityType.ZOMBIE);
+
+            boss.getEquipment().setHelmet(makeSkullItem("ZOMBIE_SLAYER_TIER_2", "JoinFUB", 1));
+            boss.getEquipment().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
+            boss.getEquipment().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
+            boss.getEquipment().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
+            boss.getEquipment().setItemInHand(hoe);
+            boss.setBaby(false);
+            boss.setMaxHealth(2000);
+            boss.setHealth(2000);
+            boss.setTarget(player);
+            boss.setVillager(false);
+            boss.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 99999, 7), false);
+            boss.setVelocity(new Vector(0, 0.5, 0));
+            boss.setFallDistance(0);
+            bossMap.put(player.getUniqueId(), boss);
+
+            ArmorStand name = (ArmorStand) player.getWorld().spawnEntity(boss.getLocation(), EntityType.ARMOR_STAND);
+            name.setCustomNameVisible(true);
+            name.setCustomName("§c☠ §bRevenant Horror §a" + boss.getHealth() + "§7/§a" + boss.getMaxHealth());
+            name.setVisible(false);
+            name.setGravity(false);
+            name.setSmall(false);
+            tag.put(boss, name);
+
+            int i = 1;
+            i = Bukkit.getScheduler().scheduleSyncRepeatingTask(Slayers.getPlugin(), new Runnable() {
+                @Override
+                public void run() {
+                    if (tag.containsKey(boss)) {
+                        if (!(boss.isDead())) {
+                            Location l = boss.getLocation().add(0, 0.3, 0);
+                            if (Math.round(boss.getHealth()) < 1000) {
+                                name.setCustomName("§c☠ §bRevenant Horror §a" + Math.round(boss.getHealth() * 5) + "§c ❤");
+                            } else if (boss.getHealth() >= 1000) {
+                                name.setCustomName("§c☠ §bRevenant Horror §a" + Utilities.formatValue(Math.round(boss.getHealth()) * 5) + "§c ❤");
+                            }
+                            boss.getWorld().playEffect(boss.getLocation(), Effect.MAGIC_CRIT, 3);
+                            name.teleport(l);
+                            boss.getWorld().playEffect(boss.getLocation(), Effect.HEART, 2);
+                        } else {
+                            tag.remove(boss);
                             name.remove();
                         }
                     }

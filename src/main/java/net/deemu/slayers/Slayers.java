@@ -1,8 +1,9 @@
 package net.deemu.slayers;
 
-import net.deemu.slayers.Bosses.RevenantHorror.ZOMBIE_SLAYER_TIER_1;
+import net.deemu.slayers.Bosses.MagmabossCommand;
 import net.deemu.slayers.Bosses.SlayerBoss;
 import net.deemu.slayers.Commands.SlayerCommand;
+import net.deemu.slayers.Commands.SlimetestCommand;
 import net.deemu.slayers.Listeners.*;
 import net.deemu.slayers.MenuSystem.PlayerMenuUtility;
 import net.deemu.slayers.Packets.PacketReader;
@@ -49,11 +50,13 @@ public class Slayers extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Slayers disabled.");
     }
 
-    public void registerCommands() {
+    private void registerCommands() {
         this.getCommand("slayer").setExecutor(new SlayerCommand());
+        this.getCommand("slimetest").setExecutor(new SlimetestCommand());
+        this.getCommand("magmaboss").setExecutor(new MagmabossCommand());
     }
 
-    public void registerListeners() {
+    private void registerListeners() {
         Bukkit.getPluginManager().registerEvents(new InventoryClickEvent(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinEvent(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitEvent(), this);
@@ -63,15 +66,11 @@ public class Slayers extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
     }
 
-    private void registerCustomEntities() {
-        SlayerBoss.registerEntity("ZOMBIE_SLAYER_TIER_1", 1, ZOMBIE_SLAYER_TIER_1.class);
-    }
-
     public static Slayers getPlugin(){
         return plugin;
     }
 
-    public static PlayerMenuUtility getPlayerMenuUtility(Player player) {
+    private static PlayerMenuUtility getPlayerMenuUtility(Player player) {
         PlayerMenuUtility playerMenuUtility;
         if (!(playerMenuUtilityMap.containsKey(player))) {
 
