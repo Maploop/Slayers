@@ -4,6 +4,7 @@ import net.minecraft.server.v1_8_R3.IChatBaseComponent;
 import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
@@ -39,5 +40,31 @@ public class Utilities {
         formattedNumber=formatter.format(value);
         formattedNumber = formattedNumber + suffix.charAt(power/3);
         return formattedNumber.length()>4 ?  formattedNumber.replaceAll("\\.[0-9]+", "") : formattedNumber;
+    }
+
+    public static Location getRandomLocation(Location origin, int radius) {
+        int which = getRandomInteger(3);
+        Location newLoc = origin;
+
+        switch (which) {
+            case 0:
+                int x = getRandomInteger(radius);
+                newLoc = origin.add(x, 0 ,0);
+                break;
+            case 1:
+                int z = getRandomInteger(radius);
+                newLoc = origin.add(0, 0, z);
+                break;
+            case 2:
+                int minusX = getRandomInteger(radius);
+                newLoc = origin.add(-minusX, 0, 0);
+                break;
+            case 3:
+                int minusZ = getRandomInteger(radius);
+                newLoc = origin.add(0, 0, -minusZ);
+                break;
+        }
+
+        return newLoc;
     }
 }

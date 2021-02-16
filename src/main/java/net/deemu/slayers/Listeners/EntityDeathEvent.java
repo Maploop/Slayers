@@ -49,7 +49,7 @@ public class EntityDeathEvent implements Listener {
                             if (SlayerBoss.bossMap.get(player.getUniqueId()) == event.getEntity()) {
                                 if (event.getEntity().getEquipment().getHelmet().getItemMeta().getDisplayName().equals("ZOMBIE_SLAYER_TIER_1")) {
                                     Quest.fightingBoss.remove(player.getUniqueId());
-                                    player.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "  NICE! SLAYER BOSS SLAIN!");
+                                    player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "  NICE! SLAYER BOSS SLAIN!");
                                     player.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "  » " + ChatColor.GRAY + "Talk to Maddox again to collect your reward!");
                                     player.playSound(player.getLocation(), Sound.NOTE_PLING, 10F, 0);
                                     event.getDrops().clear();
@@ -91,7 +91,7 @@ public class EntityDeathEvent implements Listener {
                             if (SlayerBoss.bossMap.get(player.getUniqueId()) == event.getEntity()) {
                                 if (event.getEntity().getEquipment().getHelmet().getItemMeta().getDisplayName().equals("ZOMBIE_SLAYER_TIER_2")) {
                                     Quest.fightingBoss.remove(player.getUniqueId());
-                                    player.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "  NICE! SLAYER BOSS SLAIN!");
+                                    player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "  NICE! SLAYER BOSS SLAIN!");
                                     player.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "  » " + ChatColor.GRAY + "Talk to Maddox again to collect your reward!");
                                     Utilities.sendActionbar(player, "&5&lBOSS SLAIN! &7(Revenant Horror II)");
                                     player.playSound(player.getLocation(), Sound.NOTE_PLING, 10F, 0);

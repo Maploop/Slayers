@@ -34,11 +34,25 @@ public class QuestMenu extends Menu {
         String[] lore = event.getInventory().getItem(13).getItemMeta().getLore().toArray(new String[0]);
         if (event.getSlot() == 13) {
             if (Quest.questComplete.containsKey(player.getUniqueId())) {
-                player.sendMessage(ChatColor.GREEN + "REWARDS CLAIMED!");
-                player.closeInventory();
-                player.playSound(player.getLocation(), Sound.LEVEL_UP, 10F, 1.5F);
-                Quest.cancelQuest(player);
-                Quest.questComplete.remove(player.getUniqueId());
+                if (Quest.questComplete.get(player.getUniqueId())) {
+                    player.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + " SLAYER QUEST COMPLETE!");
+                    if (Quest.quest.get(player.getUniqueId()).toString().contains("ZOMBIE_SLAYER")) {
+                        player.sendMessage(ChatColor.YELLOW + "Zombie Slayer LVL 0" + ChatColor.DARK_PURPLE + " - " +ChatColor.GRAY + "Next LVL in " + ChatColor.RED + "N/A " + ChatColor.LIGHT_PURPLE + "XP");
+                    }
+                    player.closeInventory();
+                    player.playSound(player.getLocation(), Sound.LEVEL_UP, 10F, 1.5F);
+                    Quest.cancelQuest(player);
+                    Quest.questComplete.remove(player.getUniqueId());
+                } else {
+                    player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + " SLAYER QUEST FAILED!");
+                    if (Quest.quest.get(player.getUniqueId()).toString().contains("ZOMBIE_SLAYER")) {
+                        player.sendMessage(ChatColor.YELLOW + "Zombie Slayer LVL 0" + ChatColor.DARK_PURPLE + " - " +ChatColor.GRAY + "Next LVL in " + ChatColor.RED + "N/A " + ChatColor.LIGHT_PURPLE + "XP");
+                    }
+                    player.closeInventory();
+                    player.playSound(player.getLocation(), Sound.GLASS, 10F, 1.5F);
+                    Quest.cancelQuest(player);
+                    Quest.questComplete.remove(player.getUniqueId());
+                }
             } else {
                 new ConfirmMenu(new PlayerMenuUtility(player)).open();
             }
@@ -83,21 +97,40 @@ public class QuestMenu extends Menu {
                             inventory.setItem(13, slayerQuest);
                         }
                     } else {
-                        if (quest.getType(player).equals(QuestType.ZOMBIE_SLAYER_TIER_1)) {
-                            slayerQuest = makeItem(Material.ROTTEN_FLESH, "§aSlayer Quest Complete!", 1, 0,
-                                    "§7Boss: §eRevenant Horror I",
-                                    "§7Progress: §aCOMPLETE!",
-                                    "",
-                                    "§eClick to cancel!");
-                            inventory.setItem(13, slayerQuest);
-                        }
-                        if (quest.getType(player).equals(QuestType.ZOMBIE_SLAYER_TIER_2)) {
-                            slayerQuest = makeItem(Material.ROTTEN_FLESH, "§aSlayer Quest Complete!", 1, 0,
-                                    "§7Boss: §eRevenant Horror II",
-                                    "§7Progress: §aCOMPLETE!",
-                                    "",
-                                    "§eClick to cancel!");
-                            inventory.setItem(13, slayerQuest);
+                        if (Quest.questComplete.get(player.getUniqueId())) {
+                            if (quest.getType(player).equals(QuestType.ZOMBIE_SLAYER_TIER_1)) {
+                                slayerQuest = makeItem(Material.ROTTEN_FLESH, "§aSlayer Quest Complete!", 1, 0,
+                                        "§7Boss: §eRevenant Horror I",
+                                        "§7Progress: §aCOMPLETE!",
+                                        "",
+                                        "§eClick to collect rewards!");
+                                inventory.setItem(13, slayerQuest);
+                            }
+                            if (quest.getType(player).equals(QuestType.ZOMBIE_SLAYER_TIER_2)) {
+                                slayerQuest = makeItem(Material.ROTTEN_FLESH, "§aSlayer Quest Complete!", 1, 0,
+                                        "§7Boss: §eRevenant Horror II",
+                                        "§7Progress: §aCOMPLETE!",
+                                        "",
+                                        "§eClick to collect rewards!");
+                                inventory.setItem(13, slayerQuest);
+                            }
+                        } else {
+                            if (quest.getType(player).equals(QuestType.ZOMBIE_SLAYER_TIER_1)) {
+                                slayerQuest = makeItem(Material.ROTTEN_FLESH, "§cSlayer Quest Failed!", 1, 0,
+                                        "§7Boss: §eRevenant Horror I",
+                                        "§7Progress: §cFAILED!",
+                                        "",
+                                        "§eClick to proceed!");
+                                inventory.setItem(13, slayerQuest);
+                            }
+                            if (quest.getType(player).equals(QuestType.ZOMBIE_SLAYER_TIER_2)) {
+                                slayerQuest = makeItem(Material.ROTTEN_FLESH, "§cSlayer Quest Failed!", 1, 0,
+                                        "§7Boss: §eRevenant Horror II",
+                                        "§7Progress: §cFAILED!",
+                                        "",
+                                        "§eClick to proceed!");
+                                inventory.setItem(13, slayerQuest);
+                            }
                         }
                     }
                 } catch (NullPointerException e) {

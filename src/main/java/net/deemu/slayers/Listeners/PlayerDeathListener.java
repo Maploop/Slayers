@@ -18,7 +18,8 @@ public class PlayerDeathListener implements Listener {
         player.sendMessage(ChatColor.RED + "Slayer Quest failed! Maddox will be angry!");
         player.playSound(player.getLocation(), Sound.NOTE_PLING, 10F, 0.5F);
 
-        Quest.cancelQuest(player);
+        Quest.questComplete.put(player.getUniqueId(), false);
+        Quest.fightingBoss.remove(player.getUniqueId());
         SlayerBoss.bossMap.get(player.getUniqueId()).remove();
         SlayerBoss.bossMap.remove(player.getUniqueId());
     }
