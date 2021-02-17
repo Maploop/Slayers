@@ -71,12 +71,12 @@ public enum SlayerBoss {
             boss1.setFallDistance(0);
             bossMap.put(player.getUniqueId(), boss1);
 
-            ArmorStand name = (ArmorStand) player.getWorld().spawnEntity(boss1.getLocation(), EntityType.ARMOR_STAND);
+            ArmorStand name = (ArmorStand) player.getWorld().spawnEntity(boss1.getLocation().add(0, +1, 0), EntityType.ARMOR_STAND);
             name.setCustomNameVisible(true);
             name.setCustomName("§c☠ §bRevenant Horror §a" + boss1.getHealth() + "§7/§a" + boss1.getMaxHealth());
             name.setVisible(false);
             name.setGravity(false);
-            name.setSmall(false);
+            name.setSmall(true);
             tag.put(boss1, name);
 
             int i = 1;
@@ -85,7 +85,7 @@ public enum SlayerBoss {
                 public void run() {
                     if(tag.containsKey(boss1)) {
                         if(!(boss1.isDead())) {
-                            Location l = boss1.getLocation().add(0, 0.3, 0);
+                            Location l = boss1.getLocation().add(0, +2, 0);
                             name.setCustomName("§c☠ §bRevenant Horror §a" + Math.round(boss1.getHealth() * 5) + "§c ❤");
                             boss1.getWorld().playEffect(boss1.getLocation(), Effect.MAGIC_CRIT, 3);
                             name.teleport(l);
@@ -117,12 +117,12 @@ public enum SlayerBoss {
             boss.setFallDistance(0);
             bossMap.put(player.getUniqueId(), boss);
 
-            ArmorStand name = (ArmorStand) player.getWorld().spawnEntity(boss.getLocation(), EntityType.ARMOR_STAND);
+            ArmorStand name = (ArmorStand) player.getWorld().spawnEntity(boss.getLocation().add(0, +1, 0), EntityType.ARMOR_STAND);
             name.setCustomNameVisible(true);
             name.setCustomName("§c☠ §bRevenant Horror §a" + boss.getHealth() + "§7/§a" + boss.getMaxHealth());
             name.setVisible(false);
             name.setGravity(false);
-            name.setSmall(false);
+            name.setSmall(true);
             tag.put(boss, name);
 
             int i = 1;
@@ -131,7 +131,7 @@ public enum SlayerBoss {
                 public void run() {
                     if (tag.containsKey(boss)) {
                         if (!(boss.isDead())) {
-                            Location l = boss.getLocation().add(0, 0.3, 0);
+                            Location l = boss.getLocation().add(0, +2, 0);
                             if (Math.round(boss.getHealth()) < 1000) {
                                 name.setCustomName("§c☠ §bRevenant Horror §a" + Math.round(boss.getHealth() * 5) + "§c ❤");
                             } else if (boss.getHealth() >= 1000) {

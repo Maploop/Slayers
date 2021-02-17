@@ -116,7 +116,7 @@ public class QuestMenu extends Menu {
                             }
                         } else {
                             if (quest.getType(player).equals(QuestType.ZOMBIE_SLAYER_TIER_1)) {
-                                slayerQuest = makeItem(Material.ROTTEN_FLESH, "§cSlayer Quest Failed!", 1, 0,
+                                slayerQuest = makeItem(Material.STAINED_CLAY, "§cSlayer Quest Failed!", 1, 14,
                                         "§7Boss: §eRevenant Horror I",
                                         "§7Progress: §cFAILED!",
                                         "",
@@ -124,7 +124,7 @@ public class QuestMenu extends Menu {
                                 inventory.setItem(13, slayerQuest);
                             }
                             if (quest.getType(player).equals(QuestType.ZOMBIE_SLAYER_TIER_2)) {
-                                slayerQuest = makeItem(Material.ROTTEN_FLESH, "§cSlayer Quest Failed!", 1, 0,
+                                slayerQuest = makeItem(Material.STAINED_CLAY, "§cSlayer Quest Failed!", 1, 14,
                                         "§7Boss: §eRevenant Horror II",
                                         "§7Progress: §cFAILED!",
                                         "",

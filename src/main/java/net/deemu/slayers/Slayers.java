@@ -1,7 +1,6 @@
 package net.deemu.slayers;
 
 import net.deemu.slayers.Bosses.MagmabossCommand;
-import net.deemu.slayers.Bosses.SlayerBoss;
 import net.deemu.slayers.Commands.SlayerCommand;
 import net.deemu.slayers.Commands.SlimetestCommand;
 import net.deemu.slayers.Listeners.*;
