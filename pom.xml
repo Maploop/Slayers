@@ -41,6 +41,7 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <outputDirectory>C:\Users\hundr\Desktop\Plugin\.notbungee\plugins</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

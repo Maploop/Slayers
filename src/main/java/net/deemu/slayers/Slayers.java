@@ -1,11 +1,12 @@
 package net.deemu.slayers;
 
-import net.deemu.slayers.Bosses.MagmabossCommand;
-import net.deemu.slayers.Commands.SlayerCommand;
-import net.deemu.slayers.Commands.SlimetestCommand;
-import net.deemu.slayers.Listeners.*;
-import net.deemu.slayers.MenuSystem.PlayerMenuUtility;
-import net.deemu.slayers.Packets.PacketReader;
+import net.deemu.slayers.bosses.MagmabossCommand;
+import net.deemu.slayers.commands.SlayerCommand;
+import net.deemu.slayers.commands.SlimetestCommand;
+import net.deemu.slayers.files.DataFile;
+import net.deemu.slayers.listeners.*;
+import net.deemu.slayers.menus.PlayerMenuUtility;
+import net.deemu.slayers.packets.PacketReader;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -24,6 +25,9 @@ public class Slayers extends JavaPlugin {
         registerCommands();
         registerListeners();
         saveDefaultConfig();
+        DataFile.setup();
+        DataFile.get().options().copyDefaults(true);
+        DataFile.save();
 
         if(!(Bukkit.getOnlinePlayers().isEmpty())){
             for(Player players : Bukkit.getOnlinePlayers()) {
@@ -32,7 +36,7 @@ public class Slayers extends JavaPlugin {
             }
         }
 
-        Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Slayers enabled.");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Slayers enabled. §dMade by Maploop §ev1.2");
     }
 
     @Override
