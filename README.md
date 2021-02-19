@@ -11,4 +11,4 @@ Also Check out my twitter:
 https://twitter.com/Maplooop
 
 Download the plugin for yourself here:
-https://github.com/DeemuDev/Slayers/releases/
+https://github.com/Maploop/Slayers/releases/
