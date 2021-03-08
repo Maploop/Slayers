@@ -1,4 +1,4 @@
-# 🗡️ Slayer Quests 👹
+# 🗡️ Slayer Quests 
 Hypixel Skyblock Slayer bosses project
 
 This project is availbe for the public.
@@ -8,7 +8,7 @@ Check out how it works:
 https://www.youtube.com/watch?v=4fSl44rR4Wc
 
 Also Check out my twitter:
-https://twitter.com/its_deemu
+https://twitter.com/Maplooop
 
 Download the plugin for yourself here:
-https://github.com/DeemuDev/Slayers/releases/
+https://github.com/Maploop/Slayers/releases/
