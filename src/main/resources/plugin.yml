@@ -13,3 +13,4 @@ commands:
     aliases:
       - pv
   wipevault:
+  spawnboss:

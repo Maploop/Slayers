@@ -1,10 +1,7 @@
 package net.maploop.slayers;
 
 import net.maploop.slayers.Bosses.MagmabossCommand;
-import net.maploop.slayers.Commands.PrivatevaultCommand;
-import net.maploop.slayers.Commands.SlayerCommand;
-import net.maploop.slayers.Commands.SlimetestCommand;
-import net.maploop.slayers.Commands.WipevaultCommand;
+import net.maploop.slayers.Commands.*;
 import net.maploop.slayers.DataManagers.VaultData;
 import net.maploop.slayers.Files.DataFile;
 import net.maploop.slayers.Listeners.*;
@@ -69,6 +66,7 @@ public class Slayers extends JavaPlugin {
         this.getCommand("privatevault").setExecutor(new PrivatevaultCommand());
         this.getCommand("pv").setExecutor(new PrivatevaultCommand());
         this.getCommand("wipevault").setExecutor(new WipevaultCommand());
+        this.getCommand("spawnboss").setExecutor(new SpawnbossCommand());
     }
 
     private void registerListeners() {

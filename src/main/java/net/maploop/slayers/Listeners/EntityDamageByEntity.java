@@ -1,11 +1,14 @@
 package net.maploop.slayers.Listeners;
 
+import de.tr7zw.changeme.nbtapi.NBTEntity;
 import net.maploop.slayers.Slayers;
 import net.maploop.slayers.Utilities.Utilities;
 import net.minecraft.server.v1_8_R3.EntityArmorStand;
+import net.minecraft.server.v1_8_R3.NBTTagCompound;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityDestroy;
 import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityLiving;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -30,7 +33,7 @@ public class EntityDamageByEntity implements Listener {
             Location loc = Utilities.getRandomLocation(entity.getLocation(), 2);
             int random = Utilities.getRandomInteger(2);
             Double damage = event.getDamage();
-            DecimalFormat formatter = new DecimalFormat("#,###.0");
+            DecimalFormat formatter = new DecimalFormat("#,###");
             String formatted = formatter.format(damage);
 
             EntityArmorStand Indicator = new EntityArmorStand(((CraftWorld)entity.getWorld()).getHandle(), loc.getX(), loc.getY(), loc.getZ());
@@ -40,13 +43,16 @@ public class EntityDamageByEntity implements Listener {
             Indicator.setSmall(true);
             Indicator.setSize(1, 1);
             Indicator.setAirTicks(20);
+            NBTEntity nbtas = new NBTEntity(Indicator.getBukkitEntity());
+            nbtas.setBoolean("Invulnerable", true);
+
             if (event.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK || event.getCause() == EntityDamageEvent.DamageCause.FIRE) {
                 Indicator.setCustomName("§6" + event.getDamage());
             } else {
-                if (event.getDamage() < 10) {
+                if (event.getDamage() < 100) {
                     Indicator.setCustomName("§7" + event.getDamage());
-                } else if (event.getDamage() > 10) {
-                    Indicator.setCustomName(Utilities.color("&f✧ &3" + formatted + " &f✧"));
+                } else if (event.getDamage() > 100) {
+                    Indicator.setCustomName(addCritTexture(formatted));
                 }
             }
 
@@ -67,6 +73,24 @@ public class EntityDamageByEntity implements Listener {
         }
     }
 
+    private String addCritTexture(String str) {
+        String new_string = null;
+        if (str.length() == 1)
+            new_string = "§f✧§f" + str + "§f✧";
+        if (str.length() == 2)
+            new_string = "§f✧" + String.valueOf(str.charAt(0)) + "§e" + String.valueOf(str.charAt(1)) + "§c✧".replaceAll(",", ChatColor.DARK_PURPLE + ",");
+        if (str.length() == 3)
+            new_string = "§f✧" + String.valueOf(str.charAt(0)) + "§e" + String.valueOf(str.charAt(1)) + "§6" + String.valueOf(str.charAt(2)) + "§c✧".replaceAll(",", ChatColor.DARK_PURPLE + ",");
+        if (str.length() == 4)
+            new_string = "§f✧" + String.valueOf(str.charAt(0)) + "§e" + String.valueOf(str.charAt(1)) + "§6" + String.valueOf(str.charAt(2)) + "§c" + String.valueOf(str.charAt(3)) + "§c✧".replaceAll(",", ChatColor.DARK_PURPLE + ",");
+        if (str.length() == 5)
+            new_string = "§f✧" + String.valueOf(str.charAt(0)) + "§e" + String.valueOf(str.charAt(1)) + "§6" + String.valueOf(str.charAt(2)) + "§c" + String.valueOf(str.charAt(3)) + str.charAt(4) + "§f✧".replaceAll(",", ChatColor.DARK_PURPLE + ",");
+        if (str.length() == 6)
+            new_string = "§f✧" + String.valueOf(str.charAt(0)) + "§e" + String.valueOf(str.charAt(1)) + "§6" + String.valueOf(str.charAt(2)) + "§c" + String.valueOf(str.charAt(3)) + str.charAt(4) + str.charAt(5) + "§f✧".replaceAll(",", ChatColor.DARK_PURPLE + ",");
+        if (str.length() == 7)
+            new_string = "§f✧" + String.valueOf(str.charAt(0)) + "§e" + String.valueOf(str.charAt(1)) + "§6" + String.valueOf(str.charAt(2)) + "§c" + String.valueOf(str.charAt(3)) + str.charAt(4) + str.charAt(5) + str.charAt(6) + "§f✧".replaceAll(",", ChatColor.DARK_PURPLE + ",");
+        return new_string;
+    }
     /*
     ArmorStand indicator = (ArmorStand) entity.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);
             indicator.setCustomNameVisible(true);

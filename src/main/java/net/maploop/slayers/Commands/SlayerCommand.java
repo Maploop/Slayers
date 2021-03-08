@@ -1,10 +1,7 @@
 package net.maploop.slayers.Commands;
 
 import net.maploop.slayers.Bosses.SlayerBoss;
-import net.maploop.slayers.MenuSystem.PlayerMenuUtility;
-import net.maploop.slayers.MenuSystem.QuestMenu;
-import net.maploop.slayers.MenuSystem.SlayerShopMenu;
-import net.maploop.slayers.MenuSystem.SlayersMenu;
+import net.maploop.slayers.MenuSystem.*;
 import net.maploop.slayers.NPC.MaddoxTheSlayer;
 import net.maploop.slayers.Quests.Quest;
 import org.bukkit.ChatColor;
@@ -58,6 +55,9 @@ public class SlayerCommand implements CommandExecutor {
             }
             if (args[0].equalsIgnoreCase("shop")) {
                 new SlayerShopMenu(new PlayerMenuUtility(player)).open();
+            }
+            if (args[0].equalsIgnoreCase("items")) {
+                new ItemsMenu(new PlayerMenuUtility(player)).open();
             }
         }
         return false;

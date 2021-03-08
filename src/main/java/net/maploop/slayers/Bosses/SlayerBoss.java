@@ -1,5 +1,6 @@
 package net.maploop.slayers.Bosses;
 
+import de.tr7zw.changeme.nbtapi.NBTEntity;
 import net.maploop.slayers.Slayers;
 import net.maploop.slayers.Utilities.Utilities;
 import net.minecraft.server.v1_8_R3.EntityInsentient;
@@ -76,7 +77,8 @@ public enum SlayerBoss {
             name.setCustomName("§c☠ §bRevenant Horror §a" + boss1.getHealth() + "§7/§a" + boss1.getMaxHealth());
             name.setVisible(false);
             name.setGravity(false);
-            name.setSmall(true);
+            NBTEntity nbtas = new NBTEntity(name);
+            nbtas.setBoolean("Invulnerable", true);
             tag.put(boss1, name);
 
             int i = 1;
@@ -85,7 +87,7 @@ public enum SlayerBoss {
                 public void run() {
                     if(tag.containsKey(boss1)) {
                         if(!(boss1.isDead())) {
-                            Location l = boss1.getLocation().add(0, +2, 0);
+                            Location l = boss1.getLocation().add(0, 0.3, 0);
                             name.setCustomName("§c☠ §bRevenant Horror §a" + Math.round(boss1.getHealth() * 5) + "§c ❤");
                             boss1.getWorld().playEffect(boss1.getLocation(), Effect.MAGIC_CRIT, 3);
                             name.teleport(l);
@@ -122,7 +124,8 @@ public enum SlayerBoss {
             name.setCustomName("§c☠ §bRevenant Horror §a" + boss.getHealth() + "§7/§a" + boss.getMaxHealth());
             name.setVisible(false);
             name.setGravity(false);
-            name.setSmall(true);
+            NBTEntity nbtas = new NBTEntity(name);
+            nbtas.setBoolean("Invulnerable", true);
             tag.put(boss, name);
 
             int i = 1;
@@ -131,7 +134,7 @@ public enum SlayerBoss {
                 public void run() {
                     if (tag.containsKey(boss)) {
                         if (!(boss.isDead())) {
-                            Location l = boss.getLocation().add(0, +2, 0);
+                            Location l = boss.getLocation().add(0, 0.3, 0);
                             if (Math.round(boss.getHealth()) < 1000) {
                                 name.setCustomName("§c☠ §bRevenant Horror §a" + Math.round(boss.getHealth() * 5) + "§c ❤");
                             } else if (boss.getHealth() >= 1000) {

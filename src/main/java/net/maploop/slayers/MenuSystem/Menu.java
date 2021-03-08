@@ -132,4 +132,14 @@ public abstract class Menu implements InventoryHolder {
             inventory.setItem(slots[1], item);
         }
     }
+
+    public void fillBottom() {
+        ItemStack item = FILLER_GLASS;
+        int size = inventory.getSize();
+        int rows = (size + 1) / 9;
+
+        for (int i = size - 9; i < size; i++) {
+            inventory.setItem(i, item);
+        }
+    }
 }

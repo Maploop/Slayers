@@ -1,6 +1,8 @@
 package net.maploop.slayers.Quests;
 
+import net.maploop.slayers.Bosses.SlayerBoss;
 import net.maploop.slayers.Listeners.EntityDeathEvent;
+import net.maploop.slayers.Slayers;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -70,5 +72,8 @@ public class Quest {
     public static void cancelQuest(Player player) {
         quest.remove(player.getUniqueId());
         EntityDeathEvent.combat_exp.remove(player.getUniqueId());
+
+        fightingBoss.remove(player.getUniqueId());
+        SlayerBoss.bossMap.remove(player.getUniqueId());
     }
 }

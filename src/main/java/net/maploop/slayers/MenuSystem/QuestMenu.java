@@ -81,6 +81,15 @@ public class QuestMenu extends Menu {
                             return;
                         }
                         if (quest.getType(player).equals(QuestType.ZOMBIE_SLAYER_TIER_1)) {
+                            if (EntityDeathEvent.combat_exp.get(player.getUniqueId()) == null) {
+                                slayerQuest = makeItem(Material.ROTTEN_FLESH, "§eRunning Slayer Quest", 1, 0,
+                                        "§7Boss: §eRevenant Horror II",
+                                        "§7Progress: §e" + "0§7/§e200",
+                                        "",
+                                        "§eClick to cancel!");
+                                inventory.setItem(13, slayerQuest);
+                                return;
+                            }
                             slayerQuest = makeItem(Material.ROTTEN_FLESH, "§eRunning Slayer Quest", 1, 0,
                                     "§7Boss: §eRevenant Horror I",
                                     "§7Progress: §e" + EntityDeathEvent.combat_exp.get(player.getUniqueId()) / 5 + "§7/§e21",
@@ -89,6 +98,15 @@ public class QuestMenu extends Menu {
                             inventory.setItem(13, slayerQuest);
                         }
                         if (quest.getType(player).equals(QuestType.ZOMBIE_SLAYER_TIER_2)) {
+                            if (EntityDeathEvent.combat_exp.get(player.getUniqueId()) == null) {
+                                slayerQuest = makeItem(Material.ROTTEN_FLESH, "§eRunning Slayer Quest", 1, 0,
+                                        "§7Boss: §eRevenant Horror II",
+                                        "§7Progress: §e" + "0§7/§e200",
+                                        "",
+                                        "§eClick to cancel!");
+                                inventory.setItem(13, slayerQuest);
+                                return;
+                            }
                             slayerQuest = makeItem(Material.ROTTEN_FLESH, "§eRunning Slayer Quest", 1, 0,
                                     "§7Boss: §eRevenant Horror II",
                                     "§7Progress: §e" + EntityDeathEvent.combat_exp.get(player.getUniqueId()) / 5 + "§7/§e200",

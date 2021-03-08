@@ -39,21 +39,16 @@ public class ConfirmMenu extends Menu {
                 player.closeInventory();
                 break;
             case 15:
-                player.sendMessage("§aAction cancelled.");
                 new QuestMenu(new PlayerMenuUtility(player)).open();
         }
     }
 
     @Override
     public void setItems() {
-        ItemStack confirm = makeItem(Material.STAINED_CLAY, "§aConfirm", 1, 5,
-                "§7Click to confirm",
-                "§7this action.");
+        ItemStack confirm = makeItem(Material.STAINED_CLAY, "§aConfirm", 1, 5);
         inventory.setItem(11, confirm);
 
-        ItemStack cancel = makeItem(Material.STAINED_CLAY, "§cCancel", 1, 14,
-                "§7Click to cancel",
-                "§7this action.");
+        ItemStack cancel = makeItem(Material.STAINED_CLAY, "§cCancel", 1, 14);
         inventory.setItem(15, cancel);
     }
 }
