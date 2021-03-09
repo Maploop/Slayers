@@ -3,7 +3,6 @@ package net.maploop.commands;
 import net.maploop.menus.*;
 import net.maploop.quests.Quest;
 import net.maploop.bosses.SlayerBoss;
-import net.maploop.slayers.menus.*;
 import net.maploop.npc.MaddoxTheSlayer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

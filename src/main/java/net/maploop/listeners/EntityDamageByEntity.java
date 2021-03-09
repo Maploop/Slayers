@@ -1,6 +1,5 @@
 package net.maploop.listeners;
 
-import de.tr7zw.changeme.nbtapi.NBTEntity;
 import net.maploop.Slayers;
 import net.maploop.util.Utilities;
 import net.minecraft.server.v1_8_R3.EntityArmorStand;
@@ -42,8 +41,6 @@ public class EntityDamageByEntity implements Listener {
             Indicator.setSmall(true);
             Indicator.setSize(1, 1);
             Indicator.setAirTicks(20);
-            NBTEntity nbtas = new NBTEntity(Indicator.getBukkitEntity());
-            nbtas.setBoolean("Invulnerable", true);
 
             if (event.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK || event.getCause() == EntityDamageEvent.DamageCause.FIRE) {
                 Indicator.setCustomName("§6" + event.getDamage());

@@ -1,8 +1,8 @@
 name: Slayers
 version: ${project.version}
-main: net.maploop.slayers.Slayers
+main: net.maploop.Slayers
 api-version: 1.16
-authors: [ Deemu ]
+authors: [ Maploop ]
 description: Hypixel Skyblock Slayers
 website: deemu.net
 commands:
