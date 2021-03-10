@@ -14,3 +14,4 @@ commands:
       - pv
   wipevault:
   spawnboss:
+  cb:

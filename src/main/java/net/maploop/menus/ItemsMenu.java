@@ -11,6 +11,15 @@ public class ItemsMenu extends Menu{
     public ItemsMenu(PlayerMenuUtility playerMenuUtility) {
         super(playerMenuUtility);
     }
+    private ItemStack maddoxBatphone;
+    public void regisyerItems() {
+        maddoxBatphone = makeCustomSkullItem("http://textures.minecraft.net/texture/9336d7cc95cbf6689f5e8c954294ec8d1efc494a4031325bb427bc81d56a484d", "§aMaddox Batphone", 1,
+                "§6Item Ability: Whassup? §e§lRIGHT CLICK",
+                "§7Lets you call §5Maddox§7, when",
+                "§7he's not busy.",
+                "",
+                "§a§lUNCOMMON");
+    }
 
     @Override
     public String getTitle() {
@@ -50,6 +59,10 @@ public class ItemsMenu extends Menu{
                         "§6§lLEGENDARY DUNGEON SWORD");
                 player.getInventory().addItem(hyperion);
                 break;
+            case "§aMaddox Batphone": {
+                regisyerItems();
+                player.getInventory().addItem(maddoxBatphone);
+            }
             case "§aSearch items":
                 player.closeInventory();
                 player.sendMessage(ChatColor.RED + "This feature is temporarily disabled.");
@@ -92,7 +105,7 @@ public class ItemsMenu extends Menu{
                 "§6§lLEGENDARY DUNGEON SWORD");
 
 
-
-        inventory.addItem(hyperion);
+        regisyerItems();
+        inventory.addItem(hyperion, maddoxBatphone);
     }
 }

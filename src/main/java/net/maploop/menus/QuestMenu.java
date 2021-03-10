@@ -11,8 +11,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class QuestMenu extends Menu {
-    public QuestMenu(PlayerMenuUtility playerMenuUtility) {
+    private final boolean openAfterDone;
+    public QuestMenu(PlayerMenuUtility playerMenuUtility, Boolean openAfterDone) {
         super(playerMenuUtility);
+        this.openAfterDone = openAfterDone;
     }
 
     @Override
@@ -45,6 +47,16 @@ public class QuestMenu extends Menu {
                             player.playSound(player.getLocation(), Sound.LEVEL_UP, 10F, 1.5F);
                             Quest.cancelQuest(player);
                             Quest.questComplete.remove(player.getUniqueId());
+                            if (openAfterDone) {
+                                new BukkitRunnable() {
+
+                                    @Override
+                                    public void run() {
+                                        new SlayersMenu(new PlayerMenuUtility(player)).open();
+                                    }
+                                }.runTaskLater(Slayers.getPlugin(), 5L);
+                            }
+
                         } else {
                             player.sendMessage(ChatColor.YELLOW + "Your unsuccessful quest has been cleared.");
                             player.closeInventory();

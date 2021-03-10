@@ -21,11 +21,7 @@ public class SlayerCommand implements CommandExecutor {
                 return true;
             }
             if (args[0].equalsIgnoreCase("menu")) {
-                if (Quest.quest.containsKey(player.getUniqueId())) {
-                    new QuestMenu(new PlayerMenuUtility(player)).open();
-                } else {
-                    new SlayersMenu(new PlayerMenuUtility(player)).open();
-                }
+                player.sendMessage(ChatColor.RED + "This command is not supported anymore. Use /cb ID to open the menu (with a valid id)");
             }
             if (args[0].equalsIgnoreCase("npc")) {
                 if (player.hasPermission("slayers.admin")) {
@@ -43,7 +39,7 @@ public class SlayerCommand implements CommandExecutor {
                 }
             }
             if(args[0].equalsIgnoreCase("myquest")) {
-                new QuestMenu(new PlayerMenuUtility(player)).open();
+                player.sendMessage(ChatColor.RED + "This command is not supported anymore.");
             }
             if(args[0].equalsIgnoreCase("spawnboss")) {
                 if(player.hasPermission("slayers.admin")) {

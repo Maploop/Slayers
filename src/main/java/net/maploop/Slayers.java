@@ -66,6 +66,7 @@ public class Slayers extends JavaPlugin {
         this.getCommand("privatevault").setExecutor(new PrivatevaultCommand());
         this.getCommand("pv").setExecutor(new PrivatevaultCommand());
         this.getCommand("wipevault").setExecutor(new WipevaultCommand());
+        this.getCommand("cb").setExecutor(new CbCommand());
         this.getCommand("spawnboss").setExecutor(new SpawnbossCommand());
     }
 
@@ -78,6 +79,7 @@ public class Slayers extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new EntityDamageByEntity(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerInteractEvent(), this);
     }
 
     public static Slayers getPlugin() {

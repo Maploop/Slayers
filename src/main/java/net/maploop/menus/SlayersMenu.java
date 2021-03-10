@@ -38,9 +38,6 @@ public class SlayersMenu extends Menu {
             case 10:
                 new RevenantHorrorMenu(new PlayerMenuUtility(player)).open();
                 break;
-            case 27:
-                new QuestMenu(new PlayerMenuUtility(player)).open();
-                break;
             case 30:
                 player.closeInventory();
                 player.sendMessage("§cThis feature is currently unavailable!");
