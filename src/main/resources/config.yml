@@ -10,4 +10,4 @@ damage-indocator-format: "#,###.0"
 # We recommend you cnage this ID the moment you donwload the plugin because it is already leaked in a video showcasing it.
 # If you want a random UUID like this, we suggest going to this website: https://www.guidgenerator.com/
 
-permenant-id: '03ce5f3d-021a-4a52-9107-63a81a36b426'
+permanent-id: '03ce5f3d-021a-4a52-9107-63a81a36b426'
