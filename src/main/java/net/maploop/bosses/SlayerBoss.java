@@ -5,10 +5,7 @@ import net.maploop.Slayers;
 import net.maploop.util.Utilities;
 import net.minecraft.server.v1_8_R3.EntityInsentient;
 import net.minecraft.server.v1_8_R3.EntityTypes;
-import org.bukkit.Bukkit;
-import org.bukkit.Effect;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
@@ -16,6 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.lang.reflect.Field;
@@ -48,6 +46,32 @@ public enum SlayerBoss {
     }
 
     private static Map<Zombie, ArmorStand> tag = new HashMap<>();
+
+    public static void playBossSpawnEffect(Location loc) {
+        for(int i = 0; i < 50; ++i) {
+            playEffectWithDelay(loc.add(0, 1, 0), i);
+            playSoundWithDelay(loc, i);
+        }
+    }
+
+    private static void playEffectWithDelay(Location loc, long delay) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                loc.getWorld().playEffect(loc, Effect.POTION_SWIRL, 20, 20);
+                loc.getWorld().playEffect(loc, Effect.MAGIC_CRIT, 20, 20);
+            }
+        }.runTaskLater(Slayers.getPlugin(), delay);
+    }
+
+    private static void playSoundWithDelay(Location loc, long delay) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                loc.getWorld().playSound(loc, Sound.WITHER_SHOOT, 1f, 1.5f);
+            }
+        }.runTaskLater(Slayers.getPlugin(), delay);
+    }
 
     public static void spawnSlayerBoss(SlayerBoss bossType, Location loc, Player player) {
         ItemStack hoe = new ItemStack(Material.DIAMOND_HOE);

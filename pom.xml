@@ -6,7 +6,7 @@
 
     <groupId>net.maploop</groupId>
     <artifactId>Slayers</artifactId>
-    <version>1.4-PRE</version>
+    <version>1.5-PRE</version>
     <packaging>jar</packaging>
 
     <name>Slayers</name>

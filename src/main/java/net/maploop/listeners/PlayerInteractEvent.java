@@ -6,9 +6,13 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.minecraft.server.v1_8_R3.MinecraftKey;
+import net.minecraft.server.v1_8_R3.PacketPlayOutNamedSoundEffect;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -32,6 +36,7 @@ public class PlayerInteractEvent implements Listener {
         if (!(player.getItemInHand().hasItemMeta())) return;
         if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             if (player.getItemInHand().getItemMeta().getDisplayName().equals("§aMaddox Batphone")) {
+
                 uniqueId = UUID.randomUUID().toString();
                 id.put(player.getUniqueId(), uniqueId);
 
@@ -85,7 +90,7 @@ public class PlayerInteractEvent implements Listener {
             @Override
             public void run() {
                 player.sendMessage(Utilities.color(msg));
-                for (int i = 0; i < 15; i++) {
+                for (int i = 0; i < 10; i++) {
                     playSoundWithDelay(player, i);
                 }
             }
@@ -97,7 +102,7 @@ public class PlayerInteractEvent implements Listener {
 
             @Override
             public void run() {
-                player.playSound(player.getLocation(), Sound.NOTE_PLING, 1f, 2f);
+                player.playSound(player.getLocation(), Sound.NOTE_PLING, 1f, 1.5f);
             }
         }.runTaskLater(Slayers.getPlugin(), delay);
     }
