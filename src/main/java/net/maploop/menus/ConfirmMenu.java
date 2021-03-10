@@ -38,8 +38,8 @@ public class ConfirmMenu extends Menu {
                     if (SlayerBoss.bossMap.containsKey(player.getUniqueId())) {
                         SlayerBoss.bossMap.get(player.getUniqueId()).remove();
                     }
-                    player.sendMessage("§cSuccessfully cancelled your current Slayer Quest.");
-                    player.playSound(player.getLocation(), Sound.NOTE_PLING, 10F, 2);
+                    player.sendMessage("§eYour slayer quest was cancelled.");
+                    player.playSound(player.getLocation(), Sound.WOOD_CLICK, 10F, 1.5f);
                     player.closeInventory();
                 }
                 if (reason.equals("start_quest_1")) {

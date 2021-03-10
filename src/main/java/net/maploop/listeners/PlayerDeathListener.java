@@ -15,7 +15,8 @@ public class PlayerDeathListener implements Listener {
         Player player = event.getEntity();
         if (!(SlayerBoss.bossMap.containsKey(player.getUniqueId()))) return;
 
-        player.sendMessage(ChatColor.RED + "Slayer Quest failed! Maddox will be angry!");
+        player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + " SLAYER QUEST FAILED!");
+        player.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + " »" + ChatColor.GRAY + "You died! Learn to play the game before fighting this!");
         player.playSound(player.getLocation(), Sound.NOTE_PLING, 10F, 0.5F);
 
         Quest.questComplete.put(player.getUniqueId(), false);

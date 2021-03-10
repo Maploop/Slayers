@@ -77,7 +77,7 @@ public class RevenantHorrorMenu extends Menu {
         inventory.setItem(11, tier1);
 
         ItemStack tier2 = makeItem(Material.ROTTEN_FLESH, "§eRevenant Horror II", 1, 0,
-                "§8Noob",
+                "§8Strong",
                 "",
                 "§7Health: §c10,000",
                 "§7Damage: §c50 §7per second",

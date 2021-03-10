@@ -1,5 +1,6 @@
 package net.maploop.listeners;
 
+import net.maploop.bosses.Dps;
 import net.maploop.quests.Quest;
 import net.maploop.bosses.SlayerBoss;
 import net.maploop.quests.QuestType;
@@ -44,6 +45,12 @@ public class EntityDeathEvent implements Listener {
                                 SlayerBoss.spawnSlayerBoss(SlayerBoss.ZOMBIE_SLAYER_TIER_1, event.getEntity().getLocation(), player);
                                 Utilities.sendActionbar(player, "&c&lSLAY THE BOSS!");
                                 Quest.fightingBoss.put(player.getUniqueId(), true);
+
+                                // Strating DPS, (damage per second)
+                                // Pretty self explanitory.
+                                Dps dps = new Dps(player, 0.5d);
+                                dps.start();
+
                                 return;
                             }
                         } else if (Quest.fightingBoss.containsKey(player.getUniqueId())) {
@@ -54,6 +61,10 @@ public class EntityDeathEvent implements Listener {
                                     player.sendMessage(ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "  » " + ChatColor.GRAY + "Talk to Maddox again to collect your reward!");
                                     player.playSound(player.getLocation(), Sound.NOTE_PLING, 10F, 0);
                                     event.getDrops().clear();
+
+                                    // End DPS, (damage per second)
+                                    // This is after the defeat the boss.
+
 
                                     Quest.questComplete.put(player.getUniqueId(), true);
                                     SlayerBoss.bossMap.remove(player.getUniqueId());

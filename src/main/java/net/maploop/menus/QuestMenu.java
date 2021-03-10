@@ -46,12 +46,9 @@ public class QuestMenu extends Menu {
                             Quest.cancelQuest(player);
                             Quest.questComplete.remove(player.getUniqueId());
                         } else {
-                            player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + " SLAYER QUEST FAILED!");
-                            if (Quest.quest.get(player.getUniqueId()).toString().contains("ZOMBIE_SLAYER")) {
-                                player.sendMessage(ChatColor.YELLOW + " Zombie Slayer LVL 0" + ChatColor.DARK_PURPLE + " - " + ChatColor.GRAY + "Next LVL in " + ChatColor.RED + "N/A " + ChatColor.LIGHT_PURPLE + "XP");
-                            }
+                            player.sendMessage(ChatColor.YELLOW + "Your unsuccessful quest has been cleared.");
                             player.closeInventory();
-                            player.playSound(player.getLocation(), Sound.GLASS, 10F, 1.5F);
+                            player.playSound(player.getLocation(), Sound.WOOD_CLICK, 10F, 1.5F);
                             Quest.cancelQuest(player);
                             Quest.questComplete.remove(player.getUniqueId());
                         }
@@ -79,6 +76,20 @@ public class QuestMenu extends Menu {
 
         if (quest.getType(player).toString().contains("ZOMBIE")) {
             if (Quest.questComplete.containsKey(player.getUniqueId())) {
+                if (!(Quest.questComplete.get(player.getUniqueId()))) {
+                    slayerQuest = makeItem(Material.STAINED_CLAY, "§cSlayer Quest Failed", 1, 14,
+                            "§7You didn't succeed in",
+                            "§7killing the boss on your",
+                            "§7last Slayer quest.",
+                            "",
+                            "§8It's not a big deal! You can",
+                            "§8always try again!",
+                            "",
+                            "§eOk, thanks for reminding me!");
+                    inventory.setItem(13, slayerQuest);
+                    return;
+                }
+
                 slayerQuest = makeItem(Material.ROTTEN_FLESH, "§aSlayer Quest Complete!", 1, 0,
                         "§7You've slain the boss!",
                         "§7Skyblock is now a little",
@@ -101,7 +112,7 @@ public class QuestMenu extends Menu {
                     "§eKill Zombies to spawn the boss!",
                     "",
                     "§bExample Monsters: ",
-                    "§7Lv1 Zombie: §cKill 11",
+                    "§7Lv1 Zombie",
                     "§8Found in Hub!",
                     "",
                     "§eClick to cancel quest!");
@@ -109,6 +120,20 @@ public class QuestMenu extends Menu {
 
         } else if (quest.getType(player).toString().contains("SPIDER")) {
             if (Quest.questComplete.containsKey(player.getUniqueId())) {
+                if (!(Quest.questComplete.get(player.getUniqueId()))) {
+                    slayerQuest = makeItem(Material.STAINED_CLAY, "§cSlayer Quest Failed", 1, 14,
+                            "§7You didn't succeed in",
+                            "§7killing the boss on your",
+                            "§7last Slayer quest.",
+                            "",
+                            "§8It's not a big deal! You can",
+                            "§8always try again!",
+                            "",
+                            "§eOk, thanks for reminding me!");
+                    inventory.setItem(13, slayerQuest);
+                    return;
+                }
+
                 slayerQuest = makeItem(Material.WEB, "§aSlayer Quest Complete!", 1, 0,
                         "§7You've slain the boss!",
                         "§7Skyblock is now a little",
@@ -131,7 +156,7 @@ public class QuestMenu extends Menu {
                     "§eKill Spiders to spawn the boss!",
                     "",
                     "§bExample Monsters: ",
-                    "§7Lv1 Spider: §cKill 11",
+                    "§7Lv1 Spider",
                     "§8Found in the Spider's Den!",
                     "",
                     "§eClick to cancel quest!");
@@ -139,6 +164,20 @@ public class QuestMenu extends Menu {
 
         } else if (quest.getType(player).toString().contains("WOLF")) {
             if (Quest.questComplete.containsKey(player.getUniqueId())) {
+                if (!(Quest.questComplete.get(player.getUniqueId()))) {
+                    slayerQuest = makeItem(Material.STAINED_CLAY, "§cSlayer Quest Failed", 1, 14,
+                            "§7You didn't succeed in",
+                            "§7killing the boss on your",
+                            "§7last Slayer quest.",
+                            "",
+                            "§8It's not a big deal! You can",
+                            "§8always try again!",
+                            "",
+                            "§eOk, thanks for reminding me!");
+                    inventory.setItem(13, slayerQuest);
+                    return;
+                }
+
                 slayerQuest = makeItem(Material.MUTTON, "§aSlayer Quest Complete!", 1, 0,
                         "§7You've slain the boss!",
                         "§7Skyblock is now a little",
@@ -161,7 +200,7 @@ public class QuestMenu extends Menu {
                     "§eKill Wolfs to spawn the boss!",
                     "",
                     "§bExample Monsters: ",
-                    "§7Lv1 Wolf: §cKill 11",
+                    "§7Lv1 Wolf",
                     "§8Found in Hub!",
                     "",
                     "§eClick to cancel quest!");
