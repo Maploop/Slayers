@@ -1,5 +1,6 @@
 package net.maploop.commands;
 
+import net.maploop.Slayers;
 import net.maploop.listeners.PlayerInteractEvent;
 import net.maploop.menus.PlayerMenuUtility;
 import net.maploop.menus.QuestMenu;
@@ -20,7 +21,7 @@ public class CbCommand implements CommandExecutor {
                 player.sendMessage(ChatColor.RED + "Missing arguments!");
                 return true;
             }
-            if (args[0].equals("03ce5f3d-021a-4a52-9107-63a81a36b426")) {
+            if (args[0].equals(Slayers.getPlugin().getConfig().getString("permanent-id"))) {
                 if (Quest.quest.containsKey(player.getUniqueId())) {
                     new QuestMenu(new PlayerMenuUtility(player), false).open();
                 } else {

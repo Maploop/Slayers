@@ -1,8 +1,13 @@
-# Plugin Config.
-# Most of the stuff in the plugin are custimizable here.
+# Config file!
 
 damage-indicator: true
 damage-indocator-format: "#,###.0"
-damage-indicator-fire: "&c{damage}"
-damage-indicator-poison: "&2{damage}"  #COMING SOON !!!
-damage-indicator-attack: "&f✧ {damage} &f✧"
+
+
+# <------------------------------------------------ READ THIS ------------------------------------------------>
+# This is a permanent ID, that you can change at any time, players can use /cb <this id> to open the Slayer menu without using the batphone.
+# This is specifically made for people if they want to use an NPC to be able to open the GUI and not the batphone only.
+# We recommend you cnage this ID the moment you donwload the plugin because it is already leaked in a video showcasing it.
+# If you want a random UUID like this, we suggest going to this website: https://www.guidgenerator.com/
+
+permenant-id: '03ce5f3d-021a-4a52-9107-63a81a36b426'
