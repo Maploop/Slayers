@@ -103,6 +103,8 @@ public enum SlayerBoss {
             name.setCustomName("§c☠ §bRevenant Horror §a" + boss1.getHealth() + "§7/§a" + boss1.getMaxHealth());
             name.setVisible(false);
             name.setGravity(false);
+            NBTEntity nbtas = new NBTEntity(name);
+            nbtas.setBoolean("Invulnerable", true);
             tag.put(boss1, name);
 
             int i = 1;
@@ -149,6 +151,8 @@ public enum SlayerBoss {
             name.setCustomName("§c☠ §bRevenant Horror §a" + boss.getHealth() + "§7/§a" + boss.getMaxHealth());
             name.setVisible(false);
             name.setGravity(false);
+            NBTEntity nbtas = new NBTEntity(name);
+            nbtas.setBoolean("Invulnerable", true);
             tag.put(boss, name);
 
             int i = 1;
@@ -198,6 +202,8 @@ public enum SlayerBoss {
             name.setCustomName("§c☠ §bRevenant Horror §a" + boss.getHealth() + "§7/§a" + boss.getMaxHealth());
             name.setVisible(false);
             name.setGravity(false);
+            NBTEntity nbtas = new NBTEntity(name);
+            nbtas.setBoolean("Invulnerable", true);
             tag.put(boss, name);
 
             int i = 1;

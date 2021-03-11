@@ -1,5 +1,6 @@
 package net.maploop.listeners;
 
+import de.tr7zw.changeme.nbtapi.NBTEntity;
 import net.maploop.Slayers;
 import net.maploop.bosses.SlayerBoss;
 import net.maploop.util.Utilities;
@@ -12,12 +13,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -26,73 +25,41 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 
 public class EntityDamageByEntity implements Listener {
+    public boolean yes = true;
+
     @EventHandler
     public void onDamage(EntityDamageEvent event) {
         Slayers plugin = Slayers.getPlugin();
+        if (event.getEntity() instanceof NPC) return;
+        if (!yes) return;
         if (plugin.getConfig().getBoolean("damage-indicator")) {
             if (event.getEntity().getType() == EntityType.ARMOR_STAND) return;
             Entity entity = event.getEntity();
 
             Location loc = Utilities.getRandomLocation(entity.getLocation(), 2);
-            int random = Utilities.getRandomInteger(2);
-            Double damage = event.getDamage();
-            DecimalFormat formatter = new DecimalFormat("#,###");
-            String formatted = formatter.format(damage);
+            addIndicator(event.getDamage(), loc, event.getCause());
 
-            EntityArmorStand Indicator = new EntityArmorStand(((CraftWorld)entity.getWorld()).getHandle(), loc.getX(), loc.getY(), loc.getZ());
-            Indicator.setCustomNameVisible(true);
-            Indicator.setGravity(false);
-            Indicator.setInvisible(true);
-            Indicator.setSmall(true);
-            Indicator.setSize(1, 1);
-            Indicator.setAirTicks(20);
+            if (event.getEntity() instanceof Player) return;
+            if (event.getEntity().isDead()) return;
+            LivingEntity e = (LivingEntity) event.getEntity();
 
-            if (event.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK || event.getCause() == EntityDamageEvent.DamageCause.FIRE) {
-                Indicator.setCustomName("§6" + event.getDamage());
-            } else {
-                if (event.getDamage() < 100) {
-                    Indicator.setCustomName("§7" + event.getDamage());
-                } else if (event.getDamage() > 100) {
-                    Indicator.setCustomName(addCritTexture(formatted));
+            if (!(e.getEquipment().getHelmet().hasItemMeta())) return;
+            if (e.getEquipment().getHelmet().getItemMeta().getDisplayName().contains("SLAYER")) {
+                if (!(SlayerBoss.bossHealth.get(entity) <= 0)) {
+                    e.setHealth(e.getMaxHealth());
+                    double rawDamage = SlayerBoss.bossHealth.get(entity) - event.getDamage();
+                    SlayerBoss.bossHealth.put(entity, rawDamage);
+                } else {
+                    e.setHealth(0);
+                    entity.remove();
+                    SlayerBoss.bossHealth.remove(entity);
+                    Bukkit.getPluginManager().callEvent(new EntityDeathEvent(e, Arrays.asList(null, null), 5));
                 }
-            }
-
-            PacketPlayOutSpawnEntityLiving pakcet = new PacketPlayOutSpawnEntityLiving(Indicator);
-            PacketPlayOutEntityDestroy removePacket = new PacketPlayOutEntityDestroy(Indicator.getId());
-            for (Player players : Bukkit.getOnlinePlayers()) {
-                ((CraftPlayer)players).getHandle().playerConnection.sendPacket(pakcet);
-            }
-
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    for (Player players : Bukkit.getOnlinePlayers()) {
-                        ((CraftPlayer)players).getHandle().playerConnection.sendPacket(removePacket);
-                    }
-                }
-            }.runTaskLater(plugin, 10);
-        }
-
-        if (event.getEntity() instanceof Player) return;
-        if (event.getEntity().isDead()) return;
-        LivingEntity entity = (LivingEntity) event.getEntity();
-
-        if (!(entity.getEquipment().getHelmet().hasItemMeta())) return;
-        if (entity.getEquipment().getHelmet().getItemMeta().getDisplayName().contains("SLAYER")) {
-            if (!(SlayerBoss.bossHealth.get(entity) <= 0)) {
-                entity.setHealth(entity.getMaxHealth());
-                double rawDamage = SlayerBoss.bossHealth.get(entity) - event.getDamage();
-                SlayerBoss.bossHealth.put(entity, rawDamage);
-            } else {
-                entity.setHealth(0);
-                entity.remove();
-                SlayerBoss.bossHealth.remove(entity);
-                Bukkit.getPluginManager().callEvent(new EntityDeathEvent(entity, Arrays.asList(null, null), 5));
             }
         }
     }
 
-    private String addCritTexture(String str) {
+    public String addCritTexture(String str) {
         String new_string = null;
         if (str.length() == 1)
             new_string = "§f✧§f" + str + "§f✧";
@@ -109,6 +76,46 @@ public class EntityDamageByEntity implements Listener {
         if (str.length() == 7)
             new_string = "§f✧" + String.valueOf(str.charAt(0)) + "§e" + String.valueOf(str.charAt(1)) + "§6" + String.valueOf(str.charAt(2)) + "§c" + String.valueOf(str.charAt(3)) + str.charAt(4) + str.charAt(5) + str.charAt(6) + "§f✧".replaceAll(",", ChatColor.DARK_PURPLE + ",");
         return new_string;
+    }
+
+    public void addIndicator(double damage, Location loc, EntityDamageEvent.DamageCause cause) {
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        String formatted = formatter.format(damage);
+
+        EntityArmorStand Indicator = new EntityArmorStand(((CraftWorld)loc.getWorld()).getHandle(), loc.getX(), loc.getY(), loc.getZ());
+        Indicator.setCustomNameVisible(true);
+        Indicator.setGravity(false);
+        Indicator.setInvisible(true);
+        Indicator.setSmall(true);
+        Indicator.setSize(1, 1);
+        Indicator.setAirTicks(20);
+        NBTEntity nbtas = new NBTEntity(Indicator.getBukkitEntity());
+        nbtas.setBoolean("Invulnerable", true);
+
+        if (cause == EntityDamageEvent.DamageCause.FIRE_TICK || cause == EntityDamageEvent.DamageCause.FIRE) {
+            Indicator.setCustomName("§6" + damage);
+        } else {
+            if (damage < 100) {
+                Indicator.setCustomName("§7" + damage);
+            } else if (damage > 100) {
+                Indicator.setCustomName(addCritTexture(formatted));
+            }
+        }
+
+        PacketPlayOutSpawnEntityLiving pakcet = new PacketPlayOutSpawnEntityLiving(Indicator);
+        PacketPlayOutEntityDestroy removePacket = new PacketPlayOutEntityDestroy(Indicator.getId());
+        for (Player players : Bukkit.getOnlinePlayers()) {
+            ((CraftPlayer)players).getHandle().playerConnection.sendPacket(pakcet);
+        }
+
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (Player players : Bukkit.getOnlinePlayers()) {
+                    ((CraftPlayer)players).getHandle().playerConnection.sendPacket(removePacket);
+                }
+            }
+        }.runTaskLater(Slayers.getPlugin(), 10);
     }
     /*
     ArmorStand indicator = (ArmorStand) entity.getWorld().spawnEntity(loc, EntityType.ARMOR_STAND);

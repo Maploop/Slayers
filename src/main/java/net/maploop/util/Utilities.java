@@ -68,4 +68,17 @@ public class Utilities {
         return newLoc;
     }
 
+    public static int percent(int currentValue, int maxValue){
+        float percent = (currentValue/maxValue) *100;
+        return (int)percent;
+    }
+
+    public static int getRandomInrange(int min, int max) {
+        Random rn = new Random();
+        int range = max - min + 1;
+        int randomNum =  rn.nextInt(range) + min;
+
+        return randomNum;
+    }
+
 }

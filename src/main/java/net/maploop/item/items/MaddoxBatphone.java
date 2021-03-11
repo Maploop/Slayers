@@ -5,6 +5,7 @@ import net.maploop.enums.ItemType;
 import net.maploop.enums.Rarity;
 import net.maploop.item.CustomItem;
 import net.maploop.item.ItemAbility;
+import net.maploop.item.ItemUtilities;
 import net.maploop.item.SBItems;
 import net.maploop.util.Utilities;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -28,8 +29,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class MaddoxBatphone extends CustomItem {
-    public MaddoxBatphone(int id, Rarity rarity, String name, Material material, int durability, boolean stackable, boolean oneTimeUse, boolean hasActive, List<ItemAbility> abilities, int manaCost, boolean reforgeable, ItemType itemType, String url) {
-        super(id, rarity, name, material, durability, stackable, oneTimeUse, hasActive, abilities, manaCost, reforgeable, itemType, url);
+
+
+    public MaddoxBatphone(int id, Rarity rarity, String name, Material material, int durability, boolean stackable, boolean oneTimeUse, boolean hasActive, List<ItemAbility> abilities, int manaCost, boolean reforgeable, ItemType itemType, String url, boolean glowing) {
+        super(id, rarity, name, material, durability, stackable, oneTimeUse, hasActive, abilities, manaCost, reforgeable, itemType, url, glowing);
     }
 
     @Override
@@ -209,7 +212,7 @@ public class MaddoxBatphone extends CustomItem {
             @Override
             public void run() {
                 player.sendMessage(Utilities.color(msg));
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 15; i++) {
                     playSoundWithDelay(player, i);
                 }
             }
@@ -221,7 +224,7 @@ public class MaddoxBatphone extends CustomItem {
 
             @Override
             public void run() {
-                player.playSound(player.getLocation(), Sound.NOTE_PLING, 1f, 1.5f);
+                player.playSound(player.getLocation(), Sound.NOTE_PLING, 1f, 2f);
             }
         }.runTaskLater(Slayers.getPlugin(), delay);
     }

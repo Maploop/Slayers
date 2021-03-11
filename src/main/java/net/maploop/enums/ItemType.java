@@ -7,7 +7,8 @@ public enum ItemType {
     LEGGINGS("LEGGINGS"),
     CHESPLATE("CHESTPLATE"),
     HELMET("HELMET"),
-    ITEM("");
+    ITEM(""),
+    WAND("WAND");
 
     private String s;
 

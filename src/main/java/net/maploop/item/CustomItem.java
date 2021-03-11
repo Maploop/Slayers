@@ -10,6 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -43,10 +44,11 @@ public abstract class CustomItem {
     private List<ItemAbility> abilities = new ArrayList<>();
     private String url;
     private final int durability;
+    private final boolean glowing;
 
 
 
-    public CustomItem(int id, Rarity rarity, String name, Material material, int durability, boolean stackable, boolean oneTimeUse, boolean hasActive, List<ItemAbility> abilities, int manaCost, boolean reforgeable, ItemType itemType) {
+    public CustomItem(int id, Rarity rarity, String name, Material material, int durability, boolean stackable, boolean oneTimeUse, boolean hasActive, List<ItemAbility> abilities, int manaCost, boolean reforgeable, ItemType itemType, boolean glowing) {
         this.id = id;
         this.rarity = rarity;
         this.name = name;
@@ -59,9 +61,10 @@ public abstract class CustomItem {
         this.reforgeable = reforgeable;
         this.itemType = itemType;
         this.durability = durability;
+        this.glowing = glowing;
     }
 
-    public CustomItem(int id, Rarity rarity, String name, Material material, int durability, boolean stackable, boolean oneTimeUse, boolean hasActive, List<ItemAbility> abilities, int manaCost, boolean reforgeable, ItemType itemType, String url) {
+    public CustomItem(int id, Rarity rarity, String name, Material material, int durability, boolean stackable, boolean oneTimeUse, boolean hasActive, List<ItemAbility> abilities, int manaCost, boolean reforgeable, ItemType itemType, String url, boolean glowing) {
         this.id = id;
         this.rarity = rarity;
         this.name = name;
@@ -75,6 +78,7 @@ public abstract class CustomItem {
         this.itemType = itemType;
         this.url = url;
         this.durability = durability;
+        this.glowing = glowing;
     }
 
     public List<String> getLore(ItemStack item) {
@@ -85,20 +89,24 @@ public abstract class CustomItem {
             lore.add(ChatColor.RED + "and might be broken");
         }
         getSpecificLorePrefix(lore, item);
-        for (ItemAbility ability : this.abilities) {
-            lore.addAll(ability.toLore());
+        if (abilities != null) {
+            for (ItemAbility ability : this.abilities) {
+                lore.addAll(ability.toLore());
+            }
         }
         if (this.manaCost != 0) {
             lore.add(ChatColor.DARK_GRAY + "Mana Cost: " + ChatColor.DARK_AQUA + manaCost);
-            lore.add("");
         }
         if (this.reforgeable) {
+            lore.add("");
             lore.add(ChatColor.DARK_GRAY + "This item can be reforged!");
         }
         getSpecificLoreSuffix(lore, item);
         if (this.oneTimeUse)
             lore.add(ChatColor.DARK_GRAY + "(consumed on use)");
-        lore.add("");
+        if (!this.reforgeable) {
+            lore.add("");
+        }
         lore.add("" + this.rarity.getColor() + ChatColor.BOLD + this.rarity.toString() + " " + itemType.getValue());
         return lore;
     }
@@ -118,8 +126,9 @@ public abstract class CustomItem {
     public void enforceStackability(ItemStack item) {
         if (item == null)
             return;
-        if (!this.stackable)
+        if(!(this.stackable)) {
             ItemUtilities.storeStringInItem(item, UUID.randomUUID().toString(), "UUID");
+        }
     }
 
     public void applyTexture(ItemStack item) {
@@ -242,7 +251,11 @@ public abstract class CustomItem {
         if (item.isStackable())
             step3.setAmount(stackSize);
         ItemMeta meta = step3.getItemMeta();
+        if (item.glowing) {
+            meta.addEnchant(Enchantment.LUCK,1, false);
+        }
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         step3.setItemMeta(meta);
         return step3;
     }

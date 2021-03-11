@@ -11,3 +11,5 @@ damage-indocator-format: "#,###.0"
 # If you want a random UUID like this, we suggest going to this website: https://www.guidgenerator.com/
 
 permanent-id: '03ce5f3d-021a-4a52-9107-63a81a36b426'
+
+# Make sure to provide the exact X, Y and Z location for NPC!
