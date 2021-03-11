@@ -3,12 +3,14 @@ package net.maploop.commands;
 import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.npc.NPC;
 import net.maploop.Slayers;
+import net.maploop.util.Utilities;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
@@ -42,9 +44,11 @@ public class SpawnbossCommand implements CommandExecutor {
                     stand.setCustomNameVisible(true);
                     nametag.put(npc, stand);
                     npc.spawn(player.getLocation());
+                    Entity[] target = (npc.getStoredLocation().getWorld().getNearbyEntities(npc.getStoredLocation(), 10, 10, 10)).toArray(new Entity[0]);
+                    int r = Utilities.getRandomInteger(npc.getStoredLocation().getWorld().getNearbyEntities(npc.getStoredLocation(), 10, 10 ,10).size());
 
-                    npc.getNavigator().getLocalParameters().attackRange(5.0).attackDelayTicks(10);
-                    npc.getNavigator().setTarget(player, true);
+                    npc.getNavigator().getLocalParameters().attackRange(5.0).attackDelayTicks(15);
+                    npc.getNavigator().setTarget(target[r], true);
 
                     Bukkit.getScheduler().scheduleSyncRepeatingTask(Slayers.getPlugin(), new Runnable() {
                         @Override

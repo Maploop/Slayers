@@ -1,5 +1,8 @@
 package net.maploop.commands;
 
+import net.maploop.Slayers;
+import net.maploop.item.CustomItem;
+import net.maploop.item.ItemUtilities;
 import net.maploop.menus.*;
 import net.maploop.quests.Quest;
 import net.maploop.bosses.SlayerBoss;
@@ -9,6 +12,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.Collections;
 
 public class SlayerCommand implements CommandExecutor {
     @Override
@@ -52,10 +58,31 @@ public class SlayerCommand implements CommandExecutor {
             if (args[0].equalsIgnoreCase("shop")) {
                 new SlayerShopMenu(new PlayerMenuUtility(player)).open();
             }
-            if (args[0].equalsIgnoreCase("items")) {
+            if (args[0].equalsIgnoreCase("item")) {
+                give(commandSender, args);
+            }
+            if (args[0].equalsIgnoreCase("olditemsmenu")) {
                 new ItemsMenu(new PlayerMenuUtility(player)).open();
             }
         }
         return false;
+    }
+
+    private void give(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) {
+            ItemUtilities.warnPlayer(sender, Collections.singletonList("Only Players"));
+            return;
+        }
+        Player player = (Player)sender;
+        int stack = 1;
+        if (args.length > 1)
+            stack = Integer.parseInt(args[1]);
+        ItemStack itemStack = CustomItem.fromString(Slayers.getPlugin(), args[1], stack);
+        if (itemStack == null) {
+            ItemUtilities.warnPlayer(sender, Collections.singletonList("No SB Item"));
+            return;
+        }
+        player.getInventory().addItem(itemStack);
+        player.sendMessage(ChatColor.GREEN + "Given " + player.getName() + " item " + ChatColor.YELLOW + args[1] + ChatColor.GREEN + ".");
     }
 }

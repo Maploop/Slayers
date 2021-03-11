@@ -1,8 +1,10 @@
 package net.maploop.listeners;
 
 import net.maploop.Slayers;
+import net.maploop.bosses.SlayerBoss;
 import net.maploop.util.Utilities;
 import net.minecraft.server.v1_8_R3.EntityArmorStand;
+import net.minecraft.server.v1_8_R3.ItemStack;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityDestroy;
 import net.minecraft.server.v1_8_R3.PacketPlayOutSpawnEntityLiving;
 import org.bukkit.Bukkit;
@@ -12,13 +14,16 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 
 public class EntityDamageByEntity implements Listener {
     @EventHandler
@@ -66,6 +71,24 @@ public class EntityDamageByEntity implements Listener {
                     }
                 }
             }.runTaskLater(plugin, 10);
+        }
+
+        if (event.getEntity() instanceof Player) return;
+        if (event.getEntity().isDead()) return;
+        LivingEntity entity = (LivingEntity) event.getEntity();
+
+        if (!(entity.getEquipment().getHelmet().hasItemMeta())) return;
+        if (entity.getEquipment().getHelmet().getItemMeta().getDisplayName().contains("SLAYER")) {
+            if (!(SlayerBoss.bossHealth.get(entity) <= 0)) {
+                entity.setHealth(entity.getMaxHealth());
+                double rawDamage = SlayerBoss.bossHealth.get(entity) - event.getDamage();
+                SlayerBoss.bossHealth.put(entity, rawDamage);
+            } else {
+                entity.setHealth(0);
+                entity.remove();
+                SlayerBoss.bossHealth.remove(entity);
+                Bukkit.getPluginManager().callEvent(new EntityDeathEvent(entity, Arrays.asList(null, null), 5));
+            }
         }
     }
 

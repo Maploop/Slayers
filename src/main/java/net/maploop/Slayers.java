@@ -1,7 +1,14 @@
 package net.maploop;
 
+import net.maploop.bosses.SlayerBoss;
 import net.maploop.commands.*;
+import net.maploop.enums.AbilityType;
+import net.maploop.enums.ItemType;
+import net.maploop.enums.Rarity;
 import net.maploop.files.DataFile;
+import net.maploop.item.ItemAbility;
+import net.maploop.item.SBItems;
+import net.maploop.item.items.MaddoxBatphone;
 import net.maploop.listeners.*;
 import net.maploop.bosses.MagmabossCommand;
 import net.maploop.data.VaultData;
@@ -9,10 +16,16 @@ import net.maploop.menus.PlayerMenuUtility;
 import net.maploop.packet.PacketReader;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * All rights to the Hypixel Network for the plugin idea.
@@ -26,8 +39,30 @@ public class Slayers extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        init();
+
+        Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Slayers enabled. §dMade by Maploop §ev1.2");
+    }
+
+    @Override
+    public void onDisable() {
+        VaultData.save();
+
+        unInject();
+        if (!(Bukkit.getOnlinePlayers().isEmpty())) {
+            for (Player players : Bukkit.getOnlinePlayers()) {
+                PacketReader reader = new PacketReader();
+                reader.uninject(players);
+            }
+        }
+
+        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Slayers disabled.");
+    }
+
+    private void init() {
         plugin = this;
         registerCommands();
+        registerItems();
         registerListeners();
         saveDefaultConfig();
         DataFile.setup();
@@ -40,23 +75,8 @@ public class Slayers extends JavaPlugin {
                 reader.inject(players);
             }
         }
-        Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Slayers enabled. §dMade by Maploop §ev1.2");
         DataFile.setDefaults();
         VaultData.restore();
-    }
-
-    @Override
-    public void onDisable() {
-        VaultData.save();
-
-        if (!(Bukkit.getOnlinePlayers().isEmpty())) {
-            for (Player players : Bukkit.getOnlinePlayers()) {
-                PacketReader reader = new PacketReader();
-                reader.uninject(players);
-            }
-        }
-
-        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Slayers disabled.");
     }
 
     private void registerCommands() {
@@ -79,7 +99,11 @@ public class Slayers extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new EntityDamageByEntity(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerInteractEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerUseCustomItem(this), this);
+    }
+
+    private void registerItems() {
+        SBItems.putItem("maddox_batphone", new MaddoxBatphone(1, Rarity.UNCOMMON, "Maddox Batphone", Material.SKULL_ITEM , 3, true, false, false, Collections.singletonList(new ItemAbility("Whassup?", AbilityType.RIGHT_CLICK, "§7Lets you call §5Maddox§7, when\nhe is not busy.\n")), 0, false, ItemType.ITEM, "http://textures.minecraft.net/texture/9336d7cc95cbf6689f5e8c954294ec8d1efc494a4031325bb427bc81d56a484d"));
     }
 
     public static Slayers getPlugin() {
@@ -96,6 +120,15 @@ public class Slayers extends JavaPlugin {
             return playerMenuUtility;
         } else {
             return playerMenuUtilityMap.get(player);
+        }
+    }
+
+    private void unInject() {
+        for(Entity e : SlayerBoss.bossMap.values()) {
+            e.remove();
+        }
+        for(ArmorStand a : SlayerBoss.tag.values()) {
+            a.remove();
         }
     }
 }

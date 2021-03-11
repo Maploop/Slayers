@@ -42,16 +42,24 @@ public class ConfirmMenu extends Menu {
                     player.playSound(player.getLocation(), Sound.WOOD_CLICK, 10F, 1.5f);
                     player.closeInventory();
                 }
-                if (reason.equals("start_quest_1")) {
+                if (reason.equals("start_quest_zombie_1")) {
                     player.closeInventory();
                     Quest.startQuest(player, QuestType.ZOMBIE_SLAYER_TIER_1);
                     player.sendMessage("§5§l  SLAYER QUEST STARTED!");
                     player.sendMessage("§5§l  » §7Slay §c100 Combat XP §7worth of Zombies.");
                     player.playSound(player.getLocation(), Sound.ENDERDRAGON_GROWL, 10F, 2);
                 }
-                if (reason.equals("start_quest_2")) {
+                if (reason.equals("start_quest_zombie_2")) {
                     player.closeInventory();
                     Quest.startQuest(player, QuestType.ZOMBIE_SLAYER_TIER_2);
+                    player.sendMessage("§5§l  SLAYER QUEST STARTED!");
+                    player.sendMessage("§5§l  » §7Slay §c1440 Combat XP §7worth of Zombies.");
+                    player.playSound(player.getLocation(), Sound.ENDERDRAGON_GROWL, 10F, 2);
+
+                }
+                if (reason.equals("start_quest_zombie_3")) {
+                    player.closeInventory();
+                    Quest.startQuest(player, QuestType.ZOMBIE_SLAYER_TIER_3);
                     player.sendMessage("§5§l  SLAYER QUEST STARTED!");
                     player.sendMessage("§5§l  » §7Slay §c1440 Combat XP §7worth of Zombies.");
                     player.playSound(player.getLocation(), Sound.ENDERDRAGON_GROWL, 10F, 2);

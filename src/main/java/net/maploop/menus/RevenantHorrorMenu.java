@@ -30,7 +30,13 @@ public class RevenantHorrorMenu extends Menu {
         Player player = (Player) event.getWhoClicked();
         switch (event.getSlot()) {
             case 49:
-                new SlayersMenu(new PlayerMenuUtility(player)).open();
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        new SlayersMenu(new PlayerMenuUtility(player)).open();
+                    }
+                }.runTaskLater(Slayers.getPlugin(), 3L);
+
                 break;
             case 11:
                 if (Quest.quest.containsKey(player.getUniqueId())) {
@@ -39,7 +45,7 @@ public class RevenantHorrorMenu extends Menu {
                     new BukkitRunnable() {
                         @Override
                         public void run() {
-                            new ConfirmMenu(new PlayerMenuUtility(player), "start_quest_1").open();
+                            new ConfirmMenu(new PlayerMenuUtility(player), "start_quest_zombie_1").open();
                         }
                     }.runTaskLater(Slayers.getPlugin(), 3);
                 }
@@ -51,11 +57,24 @@ public class RevenantHorrorMenu extends Menu {
                     new BukkitRunnable() {
                         @Override
                         public void run() {
-                            new ConfirmMenu(new PlayerMenuUtility(player), "start_quest_2").open();
+                            new ConfirmMenu(new PlayerMenuUtility(player), "start_quest_zombie_2").open();
                         }
                     }.runTaskLater(Slayers.getPlugin(), 3);
 
                 }
+            case 13: {
+                if (Quest.quest.containsKey(player.getUniqueId())) {
+                    player.sendMessage(ChatColor.RED + "You are already running a quest!");
+                } else {
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            new ConfirmMenu(new PlayerMenuUtility(player), "start_quest_zombie_3").open();
+                        }
+                    }.runTaskLater(Slayers.getPlugin(), 3);
+
+                }
+            }
         }
     }
 
@@ -65,10 +84,13 @@ public class RevenantHorrorMenu extends Menu {
         ItemStack tier1 = makeItem(Material.ROTTEN_FLESH, "§aRevenant Horror I", 1, 0,
                 "§8Beginner",
                 "",
-                "§7Health: §c500",
-                "§7Damage: §c10 §7per second",
+                "§7Health: §c500❤",
+                "§7Damage: §c0.5 §7per second",
                 "",
-                "§7Reward: §d10 Zombie Slayer XP",
+                "§cLife Drain",
+                "§7Drains health every few seconds.",
+                "",
+                "§7Reward: §d5 Zombie Slayer XP",
                 " §8+ Boss Drops",
                 "",
                 "§7Cost to start: §8FREE!",
@@ -79,23 +101,53 @@ public class RevenantHorrorMenu extends Menu {
         ItemStack tier2 = makeItem(Material.ROTTEN_FLESH, "§eRevenant Horror II", 1, 0,
                 "§8Strong",
                 "",
-                "§7Health: §c10,000",
-                "§7Damage: §c50 §7per second",
+                "§7Health: §c20,000❤",
+                "§7Damage: §c0.5 §7per second",
                 "",
-                "§7Reward: §d50 Zombie Slayer XP",
-                " §8+Boss Drops",
+                "§cLife Drain",
+                "§7Drains health every few seconds.",
                 "",
-                "§7Cost to start: §65,000 coins",
+                "§aPestilence",
+                "§7Deals AOE damage every second,",
+                "§7shredding armor by 25%.",
+                "",
+                "§7Reward: §d25 Zombie Slayer XP",
+                " §8+ Boss Drops",
+                "",
+                "§7Cost to start: §62,000 coins",
                 "",
                 "§eClick to start!");
         inventory.setItem(12, tier2);
+
+        ItemStack tier3 = makeItem(Material.ROTTEN_FLESH, "§cRevenant Horror III", 1, 0,
+                "§8Challenging",
+                "",
+                "§7Health: §c400,000❤",
+                "§7Damage: §c1 §7per second",
+                "",
+                "§cLife Drain",
+                "§7Drains health every few seconds.",
+                "",
+                "§aPestilence",
+                "§7Deals AOE damage every second,",
+                "§7shredding armor by 25%.",
+                "",
+                "§cEnrage",
+                "§7Gets real mad once in a while.",
+                "",
+                "§7Reward: §d100 Zombie Slayer XP",
+                " §8+ Boss Drops",
+                "",
+                "§7Cost to start: §610,000 coins",
+                "",
+                "§eClick to start!");
 
         ItemStack comingSoon = makeItem(Material.COAL_BLOCK, "§5Revenant Horror", 1, 0,
                 "§7This unimaginably difficult",
                 "§7boss tier will release at a",
                 "§7later date.");
 
-        inventory.setItem(13, comingSoon);
+        inventory.setItem(13, tier3);
         inventory.setItem(14, comingSoon);
         inventory.setItem(15, comingSoon);
 

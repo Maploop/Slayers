@@ -1,7 +1,7 @@
 package net.maploop.commands;
 
 import net.maploop.Slayers;
-import net.maploop.listeners.PlayerInteractEvent;
+import net.maploop.item.SBItems;
 import net.maploop.menus.PlayerMenuUtility;
 import net.maploop.menus.QuestMenu;
 import net.maploop.menus.SlayersMenu;
@@ -30,8 +30,8 @@ public class CbCommand implements CommandExecutor {
                 return true;
             }
 
-            if (PlayerInteractEvent.id.containsKey(player.getUniqueId())) {
-                if (args[0].equals(PlayerInteractEvent.id.get(player.getUniqueId()))) {
+            if (SBItems.id.containsKey(player.getUniqueId())) {
+                if (args[0].equals(SBItems.id.get(player.getUniqueId()))) {
                     if (Quest.quest.containsKey(player.getUniqueId())) {
                         new QuestMenu(new PlayerMenuUtility(player), true).open();
                     } else {
