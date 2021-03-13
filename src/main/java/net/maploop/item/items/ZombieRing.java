@@ -27,8 +27,9 @@ public class ZombieRing extends CustomItem {
     }
 
     @Override
-    public void getSpecificLorePrefix(List<String> paramList, ItemStack paramItemStack) {
-
+    public void getSpecificLorePrefix(List<String> lore, ItemStack paramItemStack) {
+        lore.add("§7Reduces damage taken from");
+        lore.add("§7Zombies by §a10%§7.");
     }
 
     @Override
@@ -52,8 +53,8 @@ public class ZombieRing extends CustomItem {
     }
 
     @Override
-    public void rightClickBlockAction(Player paramPlayer, PlayerInteractEvent paramPlayerInteractEvent, Block paramBlock, ItemStack paramItemStack) {
-
+    public void rightClickBlockAction(Player paramPlayer, PlayerInteractEvent event, Block paramBlock, ItemStack paramItemStack) {
+        event.setCancelled(true);
     }
 
     @Override
@@ -98,6 +99,6 @@ public class ZombieRing extends CustomItem {
 
     @Override
     public void activeEffect(Player paramPlayer, ItemStack paramItemStack) {
-
+        paramPlayer.sendMessage("active effect");
     }
 }

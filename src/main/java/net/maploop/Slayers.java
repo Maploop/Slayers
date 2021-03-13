@@ -108,7 +108,7 @@ public class Slayers extends JavaPlugin {
         SBItems.putItem("wand_of_mending", new WandOfMending(4, Rarity.RARE, "Wand of Mending", Material.STICK, 0, false, false, false, Collections.singletonList(new ItemAbility("Medium Heal", AbilityType.RIGHT_CLICK, "§7Heal §c90❤§7/s for 3s.\n§8Wand heals don't stack.", 1)), 80, false, ItemType.WAND, true));
         SBItems.putItem("wand_of_restoration", new WandOfRestoration(5, Rarity.EPIC, "Wand of Restoration", Material.STICK, 0, false, false, false, Collections.singletonList(new ItemAbility("Big Heal", AbilityType.RIGHT_CLICK, "§7Heal §c120❤§7/s for 3s.\n§8Wand heals don't stack.", 1)), 100, false, ItemType.WAND, true));
         SBItems.putItem("revenant_flesh", new RevenantFlesh(6, Rarity.UNCOMMON, "Revenant Flesh", Material.ROTTEN_FLESH, 0, true, false, false, null, 0, false, ItemType.ITEM, true));
-        SBItems.putItem("zombie_ring", new ZombieRing(7, Rarity.UNCOMMON, "Zombie Ring", Material.SKULL_ITEM, 3, false, false, false, null, 0, false, ItemType.ACCESSORY, "http://textures.minecraft.net/texture/177c9c638bf3dcda348edea44e9a3db4abc1e239558661611f80c110472ad", false));
+        SBItems.putItem("zombie_ring", new ZombieRing(7, Rarity.UNCOMMON, "Zombie Ring", Material.SKULL_ITEM, 3, false, false, true, null, 0, true, ItemType.ACCESSORY, "http://textures.minecraft.net/texture/177c9c638bf3dcda348edea44e9a3db4abc1e239558661611f80c110472ad", false));
     }
 
     public static Slayers getPlugin() {

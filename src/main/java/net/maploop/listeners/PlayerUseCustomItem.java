@@ -3,7 +3,6 @@ package net.maploop.listeners;
 import net.maploop.Slayers;
 import net.maploop.item.CustomItem;
 import net.maploop.item.ItemUtilities;
-import net.maploop.util.Utilities;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -51,6 +50,7 @@ public class PlayerUseCustomItem implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInHand();
+        if (item == null || item.getType() == Material.AIR) return;
         if (ItemUtilities.isSBItem(item))
             ItemUtilities.getSBItem(item).breakBlockAction(player, event, event.getBlock(), item);
     }
