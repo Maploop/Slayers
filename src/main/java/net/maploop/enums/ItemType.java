@@ -8,7 +8,8 @@ public enum ItemType {
     CHESPLATE("CHESTPLATE"),
     HELMET("HELMET"),
     ITEM(""),
-    WAND("WAND");
+    WAND("WAND"),
+    ACCESSORY("ACCESSORY");
 
     private String s;
 

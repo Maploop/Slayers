@@ -31,7 +31,7 @@ public class Utilities {
 
     public static String formatValue(double value) {
         int power;
-        String suffix = " kmbt";
+        String suffix = " kMBT";
         String formattedNumber = "";
 
         NumberFormat formatter = new DecimalFormat("#,###.#");

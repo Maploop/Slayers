@@ -53,7 +53,7 @@ public class ConfirmMenu extends Menu {
                     player.closeInventory();
                     Quest.startQuest(player, QuestType.ZOMBIE_SLAYER_TIER_2);
                     player.sendMessage("§5§l  SLAYER QUEST STARTED!");
-                    player.sendMessage("§5§l  » §7Slay §c1440 Combat XP §7worth of Zombies.");
+                    player.sendMessage("§5§l  » §7Slay §c440 Combat XP §7worth of Zombies.");
                     player.playSound(player.getLocation(), Sound.ENDERDRAGON_GROWL, 10F, 2);
 
                 }
@@ -61,9 +61,16 @@ public class ConfirmMenu extends Menu {
                     player.closeInventory();
                     Quest.startQuest(player, QuestType.ZOMBIE_SLAYER_TIER_3);
                     player.sendMessage("§5§l  SLAYER QUEST STARTED!");
-                    player.sendMessage("§5§l  » §7Slay §c1440 Combat XP §7worth of Zombies.");
+                    player.sendMessage("§5§l  » §7Slay §c670 Combat XP §7worth of Zombies.");
                     player.playSound(player.getLocation(), Sound.ENDERDRAGON_GROWL, 10F, 2);
 
+                }
+                if (reason.equals("start_quest_zombie_4")) {
+                    player.closeInventory();
+                    Quest.startQuest(player, QuestType.ZOMBIE_SLAYER_TIER_4);
+                    player.sendMessage("§5§l  SLAYER QUEST STARTED!");
+                    player.sendMessage("§5§l  » §7Slay §c1440 Combat XP §7worth of Zombies.");
+                    player.playSound(player.getLocation(), Sound.ENDERDRAGON_GROWL, 10F, 2);
                 }
                 break;
             }

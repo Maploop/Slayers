@@ -107,11 +107,11 @@ public class SlayerCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
         int stack = 1;
-        if (args.length > 1)
-            stack = Integer.parseInt(args[1]);
-        ItemStack itemStack = CustomItem.fromString(Slayers.getPlugin(), args[1], stack);
+        if (args.length > 2)
+            stack = Integer.parseInt(args[2]);
+        ItemStack itemStack = CustomItem.fromString(Slayers.getPlugin(), args[1].toLowerCase(), stack);
         if (itemStack == null) {
-            ItemUtilities.warnPlayer(sender, Collections.singletonList("No SB Item"));
+            ItemUtilities.warnPlayer(sender, Collections.singletonList("Invalid item!"));
             return;
         }
         player.getInventory().addItem(itemStack);

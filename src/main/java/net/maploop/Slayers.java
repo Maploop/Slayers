@@ -8,9 +8,7 @@ import net.maploop.enums.Rarity;
 import net.maploop.files.DataFile;
 import net.maploop.item.ItemAbility;
 import net.maploop.item.SBItems;
-import net.maploop.item.items.MaddoxBatphone;
-import net.maploop.item.items.RevenantFalchion;
-import net.maploop.item.items.WandOfHealing;
+import net.maploop.item.items.*;
 import net.maploop.listeners.*;
 import net.maploop.bosses.MagmabossCommand;
 import net.maploop.data.VaultData;
@@ -88,6 +86,7 @@ public class Slayers extends JavaPlugin {
         this.getCommand("pv").setExecutor(new PrivatevaultCommand());
         this.getCommand("wipevault").setExecutor(new WipevaultCommand());
         this.getCommand("cb").setExecutor(new CbCommand());
+        this.getCommand("unbreakable").setExecutor(new UnbreakableCommand());
     }
 
     private void registerListeners() {
@@ -96,16 +95,20 @@ public class Slayers extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerQuitEvent(), this);
         Bukkit.getPluginManager().registerEvents(new RightClickNPC(), this);
         Bukkit.getPluginManager().registerEvents(new EntityDeathEvent(), this);
-        Bukkit.getPluginManager().registerEvents(new EntityDamageByEntity(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new InventoryCloseListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerUseCustomItem(this), this);
+        Bukkit.getPluginManager().registerEvents(new EntityDamageByEntity(), this);
     }
 
     private void registerItems() {
         SBItems.putItem("maddox_batphone", new MaddoxBatphone(1, Rarity.UNCOMMON, "Maddox Batphone", Material.SKULL_ITEM , 3, true, false, false, Collections.singletonList(new ItemAbility("Whassup?", AbilityType.RIGHT_CLICK, "§7Lets you call §5Maddox§7, when\nhe is not busy.\n")), 0, false, ItemType.ITEM, "http://textures.minecraft.net/texture/9336d7cc95cbf6689f5e8c954294ec8d1efc494a4031325bb427bc81d56a484d", false));
         SBItems.putItem("wand_of_healing", new WandOfHealing(2, Rarity.UNCOMMON, "Wand of Healing", Material.STICK, 0, false, false, false, Collections.singletonList(new ItemAbility("Small Heal", AbilityType.RIGHT_CLICK, "§7Heal §c20❤§7/s for 7s.\n§8Wand heals don't stack.", 1)), 60, false, ItemType.WAND, true));
         SBItems.putItem("revenant_falchion", new RevenantFalchion(3, Rarity.RARE, "Revenant Falchion", Material.DIAMOND_SWORD, 0, false, false, false, null, 0, true, ItemType.SWORD, false));
+        SBItems.putItem("wand_of_mending", new WandOfMending(4, Rarity.RARE, "Wand of Mending", Material.STICK, 0, false, false, false, Collections.singletonList(new ItemAbility("Medium Heal", AbilityType.RIGHT_CLICK, "§7Heal §c90❤§7/s for 3s.\n§8Wand heals don't stack.", 1)), 80, false, ItemType.WAND, true));
+        SBItems.putItem("wand_of_restoration", new WandOfRestoration(5, Rarity.EPIC, "Wand of Restoration", Material.STICK, 0, false, false, false, Collections.singletonList(new ItemAbility("Big Heal", AbilityType.RIGHT_CLICK, "§7Heal §c120❤§7/s for 3s.\n§8Wand heals don't stack.", 1)), 100, false, ItemType.WAND, true));
+        SBItems.putItem("revenant_flesh", new RevenantFlesh(6, Rarity.UNCOMMON, "Revenant Flesh", Material.ROTTEN_FLESH, 0, true, false, false, null, 0, false, ItemType.ITEM, true));
+        SBItems.putItem("zombie_ring", new ZombieRing(7, Rarity.UNCOMMON, "Zombie Ring", Material.SKULL_ITEM, 0, false, false, false, null, 0, false, ItemType.ACCESSORY, "http://textures.minecraft.net/texture/177c9c638bf3dcda348edea44e9a3db4abc1e239558661611f80c110472ad", false));
     }
 
     public static Slayers getPlugin() {

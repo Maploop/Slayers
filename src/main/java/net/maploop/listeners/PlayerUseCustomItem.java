@@ -3,6 +3,7 @@ package net.maploop.listeners;
 import net.maploop.Slayers;
 import net.maploop.item.CustomItem;
 import net.maploop.item.ItemUtilities;
+import net.maploop.util.Utilities;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -35,8 +36,7 @@ public class PlayerUseCustomItem implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerHit(EntityDamageByEntityEvent event) {
-        if (event.getDamager().getType() != EntityType.PLAYER)
-            return;
+        if (event.getDamager().getType() != EntityType.PLAYER) return;
         Player player = (Player) event.getDamager();
         ItemStack used = player.getInventory().getItemInHand();
         if (used != null) {

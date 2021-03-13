@@ -63,6 +63,19 @@ public abstract class Menu implements InventoryHolder {
         return item;
     }
 
+    public ItemStack makeItem(Material material, String displayName, int amount, int durability, String lore){
+        ItemStack item = new ItemStack(material, amount, (short) durability);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(displayName);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+
+        String[] lore1 = lore.split("\n");
+        meta.setLore(Arrays.asList(lore1));
+        item.setItemMeta(meta);
+
+        return item;
+    }
+
     public ItemStack makeAdvancedItem(Material material, String displayName, int amount, int durability, List<String> lore){
         ItemStack item = new ItemStack(material, amount, (short) durability);
         ItemMeta meta = item.getItemMeta();

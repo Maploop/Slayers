@@ -256,6 +256,7 @@ public abstract class CustomItem {
         }
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);
         step3.setItemMeta(meta);
         return step3;
     }

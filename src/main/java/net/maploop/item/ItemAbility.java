@@ -35,7 +35,7 @@ public class ItemAbility {
             lore.add(item);
         }
         if (this.cooldown > 0)
-            lore.add(ChatColor.DARK_GRAY + "Cooldown: " + ChatColor.GREEN + this.cooldown + "s.");
+            lore.add(ChatColor.DARK_GRAY + "Cooldown: " + ChatColor.GREEN + this.cooldown + "s");
         return lore;
     }
 }

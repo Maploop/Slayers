@@ -127,6 +127,21 @@ public class SlayersMenu extends Menu {
                 ChatColor.GRAY + "Tier IV grants " + ChatColor.AQUA + "+2% Combat XP" + ChatColor.GRAY + ".");
         inventory.setItem(32, boost);
 
+        ItemStack autoslayer = makeItem(Material.INK_SACK, "§cAuto Slayer", 1, 1,
+                "§7Upon defeating a boss,",
+                "§aautomatically §7completes",
+                "§7quest and starts",
+                "§7another of same type if",
+                "§7you have enough §6coins",
+                "§7in your purse or bank.",
+                "",
+                "§cRequires LVL 6 in all bosses");
+        inventory.setItem(28, autoslayer);
+
+        ItemStack bonus = makeItem(Material.POWERED_RAIL, "§aSlayer Bonus Rewards", 1, 0,
+                "§7Unlock bonuses by\n§7reaching a LVL on all\n§7bosses.\n \n§c✖ LVL 6\n§7Earn §a+3§7 of any boss's\n§7main token drop when\n§7slaying mini-bosses.\n \n§c✖ LVL 7\n§7Slayers are §64% cheaper§7.");
+        inventory.setItem(33, bonus);
+
         ItemStack myQuest = makeCustomSkullItem("http://textures.minecraft.net/texture/1035c528036b384c53c9c8a1a125685e16bfb369c197cc9f03dfa3b835b1aa55", "§aYour Active Quests", 1,
                 "§7View your current active",
                 "§7Slayer Quest and cancel",

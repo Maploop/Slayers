@@ -28,8 +28,8 @@ public class RevenantHorrorMenu extends Menu {
     public void hadleMenu(InventoryClickEvent event) {
         event.setCancelled(true);
         Player player = (Player) event.getWhoClicked();
-        switch (event.getSlot()) {
-            case 49:
+        switch (event.getCurrentItem().getItemMeta().getDisplayName()) {
+            case "§aGo back":
                 new BukkitRunnable() {
                     @Override
                     public void run() {
@@ -38,7 +38,7 @@ public class RevenantHorrorMenu extends Menu {
                 }.runTaskLater(Slayers.getPlugin(), 3L);
 
                 break;
-            case 11:
+            case "§aRevenant Horror I":
                 if (Quest.quest.containsKey(player.getUniqueId())) {
                     player.sendMessage(ChatColor.RED + "You are already running a quest!");
                 } else {
@@ -50,7 +50,7 @@ public class RevenantHorrorMenu extends Menu {
                     }.runTaskLater(Slayers.getPlugin(), 3);
                 }
                 break;
-            case 12:
+            case "§eRevenant Horror II":
                 if (Quest.quest.containsKey(player.getUniqueId())) {
                     player.sendMessage(ChatColor.RED + "You are already running a quest!");
                 } else {
@@ -62,7 +62,7 @@ public class RevenantHorrorMenu extends Menu {
                     }.runTaskLater(Slayers.getPlugin(), 3);
 
                 }
-            case 13: {
+            case "§cRevenant Horror III": {
                 if (Quest.quest.containsKey(player.getUniqueId())) {
                     player.sendMessage(ChatColor.RED + "You are already running a quest!");
                 } else {
@@ -73,6 +73,18 @@ public class RevenantHorrorMenu extends Menu {
                         }
                     }.runTaskLater(Slayers.getPlugin(), 3);
 
+                }
+            }
+            case "§4Revenant Horror IV": {
+                if (Quest.quest.containsKey(player.getUniqueId())) {
+                    player.sendMessage(ChatColor.RED + "You are already running a quest!");
+                } else {
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            new ConfirmMenu(new PlayerMenuUtility(player), "start_quest_zombie_4").open();
+                        }
+                    }.runTaskLater(Slayers.getPlugin(), 3);
                 }
             }
         }
@@ -95,7 +107,7 @@ public class RevenantHorrorMenu extends Menu {
                 "",
                 "§7Cost to start: §8FREE!",
                 "",
-                "§eClick to start! §7(FREE!)");
+                "§eClick to slay! §7(FREE!)");
         inventory.setItem(11, tier1);
 
         ItemStack tier2 = makeItem(Material.ROTTEN_FLESH, "§eRevenant Horror II", 1, 0,
@@ -116,7 +128,7 @@ public class RevenantHorrorMenu extends Menu {
                 "",
                 "§7Cost to start: §62,000 coins",
                 "",
-                "§eClick to start!");
+                "§eClick to slay!");
         inventory.setItem(12, tier2);
 
         ItemStack tier3 = makeItem(Material.ROTTEN_FLESH, "§cRevenant Horror III", 1, 0,
@@ -140,7 +152,11 @@ public class RevenantHorrorMenu extends Menu {
                 "",
                 "§7Cost to start: §610,000 coins",
                 "",
-                "§eClick to start!");
+                "§eClick to slay!");
+
+        ItemStack tier4 = makeItem(Material.ROTTEN_FLESH, "§4Revenant Horror IV", 1, 0,
+                "§8Deadly\n \n§7Health: §c1,500,000❤\n§7Damage: §c2.5 §7per second\n \n§cLife Drain\n§7Drains health every few seconds\n \n§aPestilence\n§7Deals AOE damage every second,\n§7shredding armor by 25%.\n \n§cEnrage" +
+                        "\n§7Gets real mad once in a while.\n \n§7Reward: §d500 Zombie Slayer XP\n§8 + Boss Drops\n \n§7Cost to start: §650,000 coins\n \n§eClick to slay!");
 
         ItemStack comingSoon = makeItem(Material.COAL_BLOCK, "§5Revenant Horror", 1, 0,
                 "§7This unimaginably difficult",
@@ -148,10 +164,10 @@ public class RevenantHorrorMenu extends Menu {
                 "§7later date.");
 
         inventory.setItem(13, tier3);
-        inventory.setItem(14, comingSoon);
+        inventory.setItem(14, tier4);
         inventory.setItem(15, comingSoon);
 
-        ItemStack back = makeItem(Material.ARROW, "§aGo back", 1, 0, "§7To Slayer Quest");
+        ItemStack back = makeItem(Material.ARROW, "§aGo back", 1, 0, "§7To Slayer");
         inventory.setItem(49, back);
 
         ItemStack progress = makeItem(Material.GOLD_BLOCK, "§5Boss Leveling Rewards", 1, 0,
@@ -194,8 +210,12 @@ public class RevenantHorrorMenu extends Menu {
                 "",
                 ChatColor.RED + "" + ChatColor.BOLD + "COMING SOON");
 
-        inventory.setItem(34, recipes);
-        inventory.setItem(31, drops);
+        ItemStack rngesusMeter = makeItem(Material.PAINTING, "§dRNGesus Meter", 1, 0,
+                "§8Revenant Horror\n \n§7Feeling §9unlucky§7? Slay\n§7bosses to fill the mefer\n§7amd guarantee an §dRNGesus\n§ddrop§7.\n \n§7Gaining an RNGesus drop\n§7will reset the meter.\n \n§dProgress:\n§f--------------------- §d0§5%");
+
+        inventory.setItem(32, recipes);
+        inventory.setItem(30, drops);
         inventory.setItem(28, progress);
+        inventory.setItem(34, rngesusMeter);
     }
 }
