@@ -1,4 +1,9 @@
 # 🗡️ Slayer 
+**IF YOUR PLUGIN DOES'T WORK WHILE GETTING THE ITEMS PLEASE ADD THIS TO YOUR PLUGINS FOLDER**
+https://www.curseforge.com/minecraft/bukkit-plugins/nbt-api/files
+
+**The command to get the items is /slayer item <1/2/3/4/5/6 ...>
+
 Hypixel Skyblock Slayer bosses project
 
 Some progress! SpigotMC page soon when I finish it!
