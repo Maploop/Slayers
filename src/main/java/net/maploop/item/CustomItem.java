@@ -150,12 +150,9 @@ public abstract class CustomItem {
         item.setItemMeta(itemMeta);
     }
 
-    public void init(String key, ItemStack item) {
-        if (key.isEmpty()) return;
-        if (key.equals("maddox_batphone")) {
-            setDurability(item);
-            applyTexture(item);
-        }
+    public void init(ItemStack item) {
+        setDurability(item);
+        applyTexture(item);
     }
 
     public void setDurability(ItemStack item) {

@@ -37,7 +37,7 @@ public class MaddoxBatphone extends CustomItem {
 
     @Override
     public void onItemStackCreate(ItemStack paramItemStack) {
-        this.init("maddox_batphone", paramItemStack);
+        this.init(paramItemStack);
     }
 
     @Override

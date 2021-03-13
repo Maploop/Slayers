@@ -23,7 +23,7 @@ public class ZombieRing extends CustomItem {
 
     @Override
     public void onItemStackCreate(ItemStack paramItemStack) {
-        setDurability(paramItemStack);
+        this.init(paramItemStack);
     }
 
     @Override
