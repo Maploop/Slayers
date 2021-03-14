@@ -233,7 +233,7 @@ public enum SlayerBoss {
         if (bossType == SlayerBoss.ZOMBIE_SLAYER_TIER_4) {
             Zombie boss = (Zombie) player.getWorld().spawnEntity(loc, EntityType.ZOMBIE);
 
-            boss.getEquipment().setHelmet(makeSkullItem("ZOMBIE_SLAYER_TIER_3", "JoinFUB", 1));
+            boss.getEquipment().setHelmet(makeSkullItem("ZOMBIE_SLAYER_TIER_4", "JoinFUB", 1));
             boss.getEquipment().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
             boss.getEquipment().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
             boss.getEquipment().setBoots(new ItemStack(Material.DIAMOND_BOOTS));

@@ -43,12 +43,9 @@ public class EntityDeathEvent implements Listener {
                         this.playSoundWithDelay(player, 11, 2f);
                         event.getDrops().clear();
 
-                        // End DPS, (damage per second)
-                        // This is after the defeat the boss.
-
-
                         Quest.questComplete.put(player.getUniqueId(), true);
                         Quest.fightingBoss.remove(player.getUniqueId());
+                        if (!(SlayerBoss.bossMap.get(player.getUniqueId()).isDead())) SlayerBoss.bossMap.get(player.getUniqueId()).remove();
                         SlayerBoss.bossMap.remove(player.getUniqueId());
                         return;
                     }
@@ -63,6 +60,7 @@ public class EntityDeathEvent implements Listener {
 
                         Quest.questComplete.put(player.getUniqueId(), true);
                         Quest.fightingBoss.remove(player.getUniqueId());
+                        if (!(SlayerBoss.bossMap.get(player.getUniqueId()).isDead())) SlayerBoss.bossMap.get(player.getUniqueId()).remove();
                         SlayerBoss.bossMap.remove(player.getUniqueId());
                         return;
                     }
@@ -77,6 +75,7 @@ public class EntityDeathEvent implements Listener {
 
                         Quest.questComplete.put(player.getUniqueId(), true);
                         Quest.fightingBoss.remove(player.getUniqueId());
+                        if (!(SlayerBoss.bossMap.get(player.getUniqueId()).isDead())) SlayerBoss.bossMap.get(player.getUniqueId()).remove();
                         SlayerBoss.bossMap.remove(player.getUniqueId());
                         return;
                     }
@@ -91,6 +90,7 @@ public class EntityDeathEvent implements Listener {
 
                         Quest.questComplete.put(player.getUniqueId(), true);
                         Quest.fightingBoss.remove(player.getUniqueId());
+                        if (!(SlayerBoss.bossMap.get(player.getUniqueId()).isDead())) SlayerBoss.bossMap.get(player.getUniqueId()).remove();
                         SlayerBoss.bossMap.remove(player.getUniqueId());
                         return;
                     }

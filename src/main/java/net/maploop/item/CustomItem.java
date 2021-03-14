@@ -251,6 +251,7 @@ public abstract class CustomItem {
         if (item.glowing) {
             meta.addEnchant(Enchantment.LUCK,1, false);
         }
+        meta.spigot().setUnbreakable(true);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         meta.addItemFlags(ItemFlag.HIDE_UNBREAKABLE);

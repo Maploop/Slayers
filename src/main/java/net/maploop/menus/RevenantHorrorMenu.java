@@ -50,7 +50,7 @@ public class RevenantHorrorMenu extends Menu {
                     }.runTaskLater(Slayers.getPlugin(), 3);
                 }
                 break;
-            case "§eRevenant Horror II":
+            case "§eRevenant Horror II": {
                 if (Quest.quest.containsKey(player.getUniqueId())) {
                     player.sendMessage(ChatColor.RED + "You are already running a quest!");
                 } else {
@@ -62,6 +62,9 @@ public class RevenantHorrorMenu extends Menu {
                     }.runTaskLater(Slayers.getPlugin(), 3);
 
                 }
+                break;
+            }
+
             case "§cRevenant Horror III": {
                 if (Quest.quest.containsKey(player.getUniqueId())) {
                     player.sendMessage(ChatColor.RED + "You are already running a quest!");
@@ -74,6 +77,7 @@ public class RevenantHorrorMenu extends Menu {
                     }.runTaskLater(Slayers.getPlugin(), 3);
 
                 }
+                break;
             }
             case "§4Revenant Horror IV": {
                 if (Quest.quest.containsKey(player.getUniqueId())) {
@@ -86,6 +90,7 @@ public class RevenantHorrorMenu extends Menu {
                         }
                     }.runTaskLater(Slayers.getPlugin(), 3);
                 }
+                break;
             }
         }
     }
