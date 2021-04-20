@@ -1,4 +1,6 @@
 # 🗡️ Slayer 
+### IMPORTANT NOTE: This project has been abandoned. A newer version will come *soon* which won't have these inefficiencies in the coding part. Oops!
+
 **IF YOUR PLUGIN DOES'T WORK WHILE GETTING THE ITEMS PLEASE ADD THIS TO YOUR PLUGINS FOLDER**
 https://www.curseforge.com/minecraft/bukkit-plugins/nbt-api/files
 
